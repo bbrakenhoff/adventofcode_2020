@@ -59,8 +59,8 @@ object AdventCalendar {
     private const val TotalDays: Int = 25
     private const val Package = "com.bbrakenhoff.adventofcode.day"
     private const val PrefixDayClass = "Day"
-    private const val CalendarHeader = "######################### Advent of Code 2020 #########################"
-    private const val CalendarFooter = "#######################################################################"
-    private const val DayHeader = "================================ Day %s ================================"
-    private const val DayFooter = "========================================================================"
+    private const val CalendarHeader = "########################## Advent of Code 2020 ##########################"
+    private const val CalendarFooter = "#########################################################################"
+    private const val DayHeader = "================================= Day %s ================================"
+    private const val DayFooter = "========================================================================="
 }
