@@ -4,14 +4,16 @@ object AdventCalendar {
 
     fun print() {
         println(CalendarHeader)
+        printDays()
+        println(CalendarFooter)
+    }
 
+    private fun printDays() {
         for (day in StartDay..TotalDays) {
             val dayNumberText = buildDayNumberText(day)
             val dayInstance = buildDayInstance(dayNumberText)
             printDay(dayInstance, dayNumberText)
         }
-
-        println(CalendarFooter)
     }
 
     private fun buildDayNumberText(day: Int): String = day.toString().padStart(2, '0')
