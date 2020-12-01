@@ -3,50 +3,70 @@ package com.bbrakenhoff.adventofcode
 object AdventCalendar {
 
     fun run() {
+        AdventCalendarBuilder.appendln(CalendarHeader)
+
         for (day in StartDay..TotalDays) {
-            runDay(day)
+            val dayInstance = buildDayInstance(day)
+            runDay(dayInstance, day)
         }
+
+        AdventCalendarBuilder.appendln()
+        AdventCalendarBuilder.appendln(CalendarFooter)
+
+        print(AdventCalendarBuilder.toString())
     }
 
-    private fun runDay(day: Int) {
+    private fun buildDayInstance(day: Int): Day? {
+        var dayInstance: Day? = null
         try {
             val dayClassName = buildClassNameForDay(day)
             val dayClass = Class.forName(dayClassName)
             val dayConstructor = dayClass.getConstructor()
-            val runMethod = dayClass.getMethod(RunMethod)
-            val dayInstance: Day = dayConstructor.newInstance() as Day
-            runMethod.invoke(dayInstance)
+            dayInstance = dayConstructor.newInstance() as Day
         } catch (e: ClassNotFoundException) {
-            println("========================= Day $day not present =========================")
+            // Do nothing
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+        return dayInstance
     }
 
     private fun buildClassNameForDay(day: Int): String {
+        val dayNumberText = buildDayNumberText(day)
         val classNameBuilder: StringBuilder = StringBuilder(Package)
 
-        appendDayNumber(day, classNameBuilder)
+        classNameBuilder.append(dayNumberText)
         classNameBuilder.append('.')
         classNameBuilder.append(PrefixDayClass)
-        appendDayNumber(day, classNameBuilder)
+        classNameBuilder.append(dayNumberText)
 
         return classNameBuilder.toString()
     }
 
-    private fun appendDayNumber(day: Int, classNameBuilder: StringBuilder) {
-        val appendZero = day < 10
-
-        if (appendZero) {
-            classNameBuilder.append('0')
-        }
-
-        classNameBuilder.append(day)
+    private fun buildDayNumberText(day: Int): String {
+       return day.toString().padStart(2, '0')
     }
 
+    private fun runDay(dayInstance: Day?, day: Int) {
+        val dayNumberText = buildDayNumberText(day)
+        AdventCalendarBuilder.appendln(String.format(DayHeader, dayNumberText))
+        AdventCalendarBuilder.appendln()
+
+        val dayResult = dayInstance?.run() ?: "NOT SOLVED YET"
+        AdventCalendarBuilder.appendln(dayResult)
+
+        AdventCalendarBuilder.appendln()
+        AdventCalendarBuilder.appendln(DayFooter)
+    }
+
+    private val AdventCalendarBuilder = StringBuilder()
+    private const val StartDay: Int = 1
+    private const val TotalDays: Int = 25
     private const val Package = "com.bbrakenhoff.adventofcode.day"
     private const val PrefixDayClass = "Day"
-    private const val RunMethod = "run"
-    private const val StartDay: Int = 1
-    private const val TotalDays: Int = 31
+    private const val CalendarHeader = "######################### Advent of Code 2020 #########################"
+    private const val CalendarFooter = "#######################################################################"
+    private const val DayHeader = "================================ Day %s ================================"
+    private const val DayFooter = "======================================================================="
 }
