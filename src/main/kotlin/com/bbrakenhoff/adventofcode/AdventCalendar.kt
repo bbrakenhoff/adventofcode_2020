@@ -2,17 +2,17 @@ package com.bbrakenhoff.adventofcode
 
 object AdventCalendar {
 
-    fun print() {
+    fun print(focused: Boolean = true) {
         println(CalendarHeader)
-        printDays()
+        printDays(focused)
         println(CalendarFooter)
     }
 
-    private fun printDays() {
+    private fun printDays(focused: Boolean) {
         for (day in StartDay..TotalDays) {
             val dayNumberText = buildDayNumberText(day)
             val dayInstance = buildDayInstance(dayNumberText)
-            printDay(dayInstance, dayNumberText)
+            printDay(dayInstance, dayNumberText, focused)
         }
     }
 
@@ -36,10 +36,13 @@ object AdventCalendar {
 
     private fun buildClassNameForDay(dayNumberText: String): String = String.format(ClassName, dayNumberText, dayNumberText)
 
-    private fun printDay(dayInstance: Day?, dayNumberText: String) {
-        printDayHeader(dayNumberText)
-        printDayResult(dayInstance)
-        printDayFooter()
+    private fun printDay(dayInstance: Day?, dayNumberText: String, focused: Boolean) {
+        val shouldPrint = !focused || (focused && dayInstance != null && dayInstance.enabledFocusedPrint)
+        if (shouldPrint) {
+            printDayHeader(dayNumberText)
+            printDayResult(dayInstance)
+            printDayFooter()
+        }
     }
 
     private fun printDayHeader(dayNumberText: String) {
@@ -48,7 +51,7 @@ object AdventCalendar {
     }
 
     private fun printDayResult(dayInstance: Day?) {
-        val dayResult = dayInstance?.run() ?: "NOT SOLVED YET"
+        val dayResult = dayInstance?.partA() ?: "NOT SOLVED YET"
         println(dayResult)
     }
 

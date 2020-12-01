@@ -1,6 +1,10 @@
 package com.bbrakenhoff.adventofcode
 
-abstract class Day {
+interface Day {
 
-    abstract fun run():String
+    val enabledFocusedPrint: Boolean
+
+    fun partA(): String
+
+    fun partB(): String
 }
