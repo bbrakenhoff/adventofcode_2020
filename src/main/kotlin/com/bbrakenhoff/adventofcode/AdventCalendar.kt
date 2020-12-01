@@ -34,7 +34,7 @@ object AdventCalendar {
         return dayInstance
     }
 
-    private fun buildClassNameForDay(dayNumberText: String): String = "$Package$dayNumberText$PrefixDayClass$dayNumberText"
+    private fun buildClassNameForDay(dayNumberText: String): String = String.format(ClassName, dayNumberText, dayNumberText)
 
     private fun printDay(dayInstance: Day?, dayNumberText: String) {
         printDayHeader(dayNumberText)
@@ -59,8 +59,7 @@ object AdventCalendar {
 
     private const val StartDay: Int = 1
     private const val TotalDays: Int = 25
-    private const val Package = "com.bbrakenhoff.adventofcode.day"
-    private const val PrefixDayClass = "Day"
+    private const val ClassName = "com.bbrakenhoff.adventofcode.day%s.Day%s"
     private const val CalendarHeader = "########################## Advent of Code 2020 ##########################"
     private const val CalendarFooter = "#########################################################################"
     private const val DayHeader = "================================= Day %s ================================"
