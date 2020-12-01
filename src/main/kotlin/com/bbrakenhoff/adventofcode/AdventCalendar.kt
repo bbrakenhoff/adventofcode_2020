@@ -2,22 +2,16 @@ package com.bbrakenhoff.adventofcode
 
 object AdventCalendar {
 
-    fun run() {
-        print(build())
-    }
-
-    private fun build(): String {
-        val adventCalendarBuilder = StringBuilder()
-        adventCalendarBuilder.appendln(CalendarHeader)
+    fun print() {
+        println(CalendarHeader)
 
         for (day in StartDay..TotalDays) {
             val dayNumberText = buildDayNumberText(day)
             val dayInstance = buildDayInstance(dayNumberText)
-            appendDay(dayInstance, dayNumberText, adventCalendarBuilder)
+            printDay(dayInstance, dayNumberText)
         }
 
-        adventCalendarBuilder.appendln(CalendarFooter)
-        return adventCalendarBuilder.toString()
+        println(CalendarFooter)
     }
 
     private fun buildDayNumberText(day: Int): String = day.toString().padStart(2, '0')
@@ -38,36 +32,27 @@ object AdventCalendar {
         return dayInstance
     }
 
-    private fun buildClassNameForDay(dayNumberText: String): String {
-        val classNameBuilder: StringBuilder = StringBuilder(Package)
+    private fun buildClassNameForDay(dayNumberText: String): String = "$Package$dayNumberText$PrefixDayClass$dayNumberText"
 
-        classNameBuilder.append(dayNumberText)
-        classNameBuilder.append('.')
-        classNameBuilder.append(PrefixDayClass)
-        classNameBuilder.append(dayNumberText)
-
-        return classNameBuilder.toString()
+    private fun printDay(dayInstance: Day?, dayNumberText: String) {
+        printDayHeader(dayNumberText)
+        printDayResult(dayInstance)
+        printDayFooter()
     }
 
-    private fun appendDay(dayInstance: Day?, dayNumberText: String, adventCalendarBuilder: StringBuilder) {
-        appendDayHeader(dayNumberText, adventCalendarBuilder)
-        appendDayResult(dayInstance, adventCalendarBuilder)
-        appendDayFooter(adventCalendarBuilder)
+    private fun printDayHeader(dayNumberText: String) {
+        println(String.format(DayHeader, dayNumberText))
+        println()
     }
 
-    private fun appendDayHeader(dayNumberText: String, adventCalendarBuilder: StringBuilder) {
-        adventCalendarBuilder.appendln(String.format(DayHeader, dayNumberText))
-        adventCalendarBuilder.appendln()
-    }
-
-    private fun appendDayResult(dayInstance: Day?, adventCalendarBuilder: StringBuilder) {
+    private fun printDayResult(dayInstance: Day?) {
         val dayResult = dayInstance?.run() ?: "NOT SOLVED YET"
-        adventCalendarBuilder.appendln(dayResult)
+        println(dayResult)
     }
 
-    private fun appendDayFooter(adventCalendarBuilder: StringBuilder) {
-        adventCalendarBuilder.appendln()
-        adventCalendarBuilder.appendln(DayFooter)
+    private fun printDayFooter() {
+        println()
+        println(DayFooter)
     }
 
     private const val StartDay: Int = 1
