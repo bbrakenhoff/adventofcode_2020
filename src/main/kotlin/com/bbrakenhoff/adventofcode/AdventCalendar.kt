@@ -51,8 +51,11 @@ object AdventCalendar {
     }
 
     private fun printDayResult(dayInstance: Day?) {
-        val dayResult = dayInstance?.partA() ?: "NOT SOLVED YET"
-        println(dayResult)
+        val partOneResult = dayInstance?.partOne() ?: NotSolvedYet
+        println(String.format(DayPartOne, partOneResult))
+
+        val partTwoResult = dayInstance?.partTwo() ?: NotSolvedYet
+        println(String.format(DayPartTwo, partTwoResult))
     }
 
     private fun printDayFooter() {
@@ -67,4 +70,7 @@ object AdventCalendar {
     private const val CalendarFooter = "#########################################################################"
     private const val DayHeader = "================================= Day %s ================================"
     private const val DayFooter = "========================================================================="
+    private const val NotSolvedYet = "NOT SOLVED YET"
+    private const val DayPartOne = "Part One: %s"
+    private const val DayPartTwo = "Part Two: %s"
 }

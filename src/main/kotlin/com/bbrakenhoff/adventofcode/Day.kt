@@ -4,7 +4,7 @@ interface Day {
 
     val enabledFocusedPrint: Boolean
 
-    fun partA(): String
+    fun partOne(): String
 
-    fun partB(): String
+    fun partTwo(): String
 }
