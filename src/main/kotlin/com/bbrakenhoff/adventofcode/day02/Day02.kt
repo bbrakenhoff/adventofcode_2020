@@ -40,7 +40,7 @@ class Day02 : Day {
     }
 
     override fun partTwo(): String {
-        val policies = policyPasswordMap.map { Pair(PasswordPolicyFactory.createPolicy(it.first), it.second) }
+        val policies = policyPasswordMap.map { Pair(PasswordPolicyFactory.createNewPolicy(it.first), it.second) }
         val validPasswordCount = countValidPasswords(policies)
 
         return validPasswordCount

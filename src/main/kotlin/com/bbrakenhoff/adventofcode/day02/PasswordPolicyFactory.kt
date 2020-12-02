@@ -7,7 +7,7 @@ object PasswordPolicyFactory {
         return OldPasswordPolicy(splitPuzzleInput.first, splitPuzzleInput.second, splitPuzzleInput.third)
     }
 
-    fun createPolicy(puzzleInput: String): NewPasswordPolicy {
+    fun createNewPolicy(puzzleInput: String): NewPasswordPolicy {
         val splitPuzzleInput = splitPuzzleInput(puzzleInput)
         return NewPasswordPolicy(splitPuzzleInput.first, splitPuzzleInput.second - 1, splitPuzzleInput.third - 1)
     }

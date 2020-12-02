@@ -1,7 +1,6 @@
 package com.bbrakenhoff.adventofcode.day02
 
 import io.kotest.matchers.shouldBe
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 class PasswordPolicyFactoryTest {
@@ -21,7 +20,7 @@ class PasswordPolicyFactoryTest {
     fun `should create a password policy from puzzle input`() {
         val puzzleInput = "12-16 v"
 
-        val result = PasswordPolicyFactory.createPolicy(puzzleInput)
+        val result = PasswordPolicyFactory.createNewPolicy(puzzleInput)
 
         result.requiredChar shouldBe 'v'
         result.firstAllowedPosition shouldBe 11
