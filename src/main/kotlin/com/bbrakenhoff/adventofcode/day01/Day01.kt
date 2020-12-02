@@ -7,7 +7,7 @@ class Day01 : Day {
 
     private val expenseReport = PuzzleInputReader.read(1).map { it.toInt() }
 
-    override val enabledFocusedPrint: Boolean = true
+    override val enabledFocusedPrint: Boolean = false
 
     override fun partOne(): String {
         var expensePair = Pair(0, 0)
