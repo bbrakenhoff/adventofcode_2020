@@ -7,6 +7,11 @@ data class PasswordPolicy private constructor(
     val maxOccurances: Int = 0
 ) {
 
+    fun isPasswordValid(password: String): Boolean {
+        val occurancesRequiredChar = password.count { it == requiredChar }
+        return occurancesRequiredChar in minOccurances..maxOccurances
+    }
+
     companion object {
         fun createFromPuzzleInput(input: String): PasswordPolicy {
             val splitInput = input.split(' ')

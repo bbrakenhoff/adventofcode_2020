@@ -7,22 +7,33 @@ class Day02 : Day {
 
     override val enabledFocusedPrint: Boolean = true
 
+    private val policyPasswordMap = readPuzzleInput()
+
     override fun partOne(): String {
-        return readPuzzleInput().toString()
+        val validatedPasswords = policyPasswordMap.map { it.first.isPasswordValid(it.second) }
+        val validPasswordCount = validatedPasswords.count { it }
+
+        return "$validPasswordCount"
     }
 
     override fun partTwo(): String {
         return ""
     }
 
-    private fun readPuzzleInput(): Map<PasswordPolicy, String> {
-        val puzzleInputReader = PuzzleInputReader.read(2)
-        return puzzleInputReader.associate {
-            val splitLine = it.split(':')
-            val policy: String = splitLine.first().trim()
-            val password: String = splitLine.last().trim()
+    private fun readPuzzleInput(): List<Pair<PasswordPolicy, String>> {
+        val puzzleInput = PuzzleInputReader.read(2)
 
-            Pair(PasswordPolicy.createFromPuzzleInput(policy), password)
+        return puzzleInput.map {
+            mapPolicyAndPasswordFromInputLine(it)
         }
+    }
+
+    private fun mapPolicyAndPasswordFromInputLine(inputLine: String): Pair<PasswordPolicy, String> {
+        val splitLine = inputLine.split(':')
+
+        val policy: String = splitLine.first().trim()
+        val password: String = splitLine.last().trim()
+
+        return Pair(PasswordPolicy.createFromPuzzleInput(policy), password)
     }
 }
