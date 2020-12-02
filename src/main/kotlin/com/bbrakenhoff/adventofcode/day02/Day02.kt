@@ -9,22 +9,6 @@ class Day02 : Day {
 
     private val policyPasswordMap = readPuzzleInput()
 
-    override fun partOne(): String {
-        val policies = policyPasswordMap.map { Pair(OldPasswordPolicy.createFromPuzzleInput(it.first), it.second) }
-        val validatedPasswords = policies.map { it.first.isPasswordValid(it.second) }
-        val validPasswordCount = validatedPasswords.count { it }
-
-        return "$validPasswordCount"
-    }
-
-    override fun partTwo(): String {
-        val policies = policyPasswordMap.map { Pair(PasswordPolicy.createFromPuzzleInput(it.first), it.second) }
-        val validatedPasswords = policies.map { it.first.isPasswordValid(it.second) }
-        val validPasswordCount = validatedPasswords.count { it }
-
-        return "$validPasswordCount"
-    }
-
     private fun readPuzzleInput(): List<Pair<String, String>> {
         val puzzleInput = PuzzleInputReader.read(2)
 
@@ -40,5 +24,25 @@ class Day02 : Day {
         val password: String = splitLine.last().trim()
 
         return Pair(policy, password)
+    }
+
+    override fun partOne(): String {
+        val policies = policyPasswordMap.map { Pair(PasswordPolicyFactory.createOldPolicy(it.first), it.second) }
+        val validPasswordCount = countValidPasswords(policies)
+
+        return validPasswordCount
+    }
+
+    private fun countValidPasswords(policies: List<Pair<PasswordPolicy, String>>): String {
+        val validatedPasswords = policies.map { it.first.isPasswordValid(it.second) }
+        val validPasswordCount = validatedPasswords.count { it }
+        return "$validPasswordCount"
+    }
+
+    override fun partTwo(): String {
+        val policies = policyPasswordMap.map { Pair(PasswordPolicyFactory.createPolicy(it.first), it.second) }
+        val validPasswordCount = countValidPasswords(policies)
+
+        return validPasswordCount
     }
 }
