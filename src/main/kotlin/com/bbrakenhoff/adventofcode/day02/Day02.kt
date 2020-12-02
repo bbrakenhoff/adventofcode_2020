@@ -10,30 +10,35 @@ class Day02 : Day {
     private val policyPasswordMap = readPuzzleInput()
 
     override fun partOne(): String {
-        val validatedPasswords = policyPasswordMap.map { it.first.isPasswordValid(it.second) }
+        val policies = policyPasswordMap.map { Pair(OldPasswordPolicy.createFromPuzzleInput(it.first), it.second) }
+        val validatedPasswords = policies.map { it.first.isPasswordValid(it.second) }
         val validPasswordCount = validatedPasswords.count { it }
 
         return "$validPasswordCount"
     }
 
     override fun partTwo(): String {
-        return ""
+        val policies = policyPasswordMap.map { Pair(PasswordPolicy.createFromPuzzleInput(it.first), it.second) }
+        val validatedPasswords = policies.map { it.first.isPasswordValid(it.second) }
+        val validPasswordCount = validatedPasswords.count { it }
+
+        return "$validPasswordCount"
     }
 
-    private fun readPuzzleInput(): List<Pair<PasswordPolicy, String>> {
+    private fun readPuzzleInput(): List<Pair<String, String>> {
         val puzzleInput = PuzzleInputReader.read(2)
 
         return puzzleInput.map {
-            mapPolicyAndPasswordFromInputLine(it)
+            mapOldPolicyAndPasswordFromInputLine(it)
         }
     }
 
-    private fun mapPolicyAndPasswordFromInputLine(inputLine: String): Pair<PasswordPolicy, String> {
+    private fun mapOldPolicyAndPasswordFromInputLine(inputLine: String): Pair<String, String> {
         val splitLine = inputLine.split(':')
 
         val policy: String = splitLine.first().trim()
         val password: String = splitLine.last().trim()
 
-        return Pair(PasswordPolicy.createFromPuzzleInput(policy), password)
+        return Pair(policy, password)
     }
 }
