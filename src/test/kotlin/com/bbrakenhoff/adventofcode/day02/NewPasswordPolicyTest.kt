@@ -7,30 +7,30 @@ class NewPasswordPolicyTest {
 
     @Test
     fun `should return false when required char does not have min occurances in password`() {
-        val policy = PasswordPolicyFactory.createNewPolicy("1-3 b")
         val password = "cdefg"
+        val policy = PasswordPolicyFactory.createNewPolicy("1-3 b: $password")
 
-        val isValid = policy.isPasswordValid(password)
+        val isValid = policy.isPasswordValid()
 
         isValid shouldBe false
     }
 
     @Test
     fun `should return false when required char occurs on both positions`() {
-        val policy = PasswordPolicyFactory.createNewPolicy("1-3 a")
         val password = "ccccccccc"
+        val policy = PasswordPolicyFactory.createNewPolicy("1-3 a: $password")
 
-        val isValid = policy.isPasswordValid(password)
+        val isValid = policy.isPasswordValid()
 
         isValid shouldBe false
     }
 
     @Test
     fun `should return true when required char occurs on one of allowed positions`() {
-        val policy = PasswordPolicyFactory.createNewPolicy("1-3 a")
         val password = "abcde"
+        val policy = PasswordPolicyFactory.createNewPolicy("1-3 a: $password")
 
-        val isValid = policy.isPasswordValid(password)
+        val isValid = policy.isPasswordValid()
 
         isValid shouldBe true
     }

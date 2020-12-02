@@ -3,23 +3,24 @@ package com.bbrakenhoff.adventofcode.day02
 object PasswordPolicyFactory {
 
     fun createOldPolicy(puzzleInput: String): OldPasswordPolicy {
-        val splitPuzzleInput = splitPuzzleInput(puzzleInput)
-        return OldPasswordPolicy(splitPuzzleInput.first, splitPuzzleInput.second, splitPuzzleInput.third)
+        val matchedInput: MatchResult = policyAndPasswordMatcher.find(puzzleInput)!!
+        val requiredChar = matchedInput.groupValues[3].first()
+        val first = matchedInput.groupValues[1].toInt()
+        val second = matchedInput.groupValues[2].toInt()
+        val password = matchedInput.groupValues[4]
+
+        return OldPasswordPolicy(requiredChar, first, second, password)
     }
 
     fun createNewPolicy(puzzleInput: String): NewPasswordPolicy {
-        val splitPuzzleInput = splitPuzzleInput(puzzleInput)
-        return NewPasswordPolicy(splitPuzzleInput.first, splitPuzzleInput.second - 1, splitPuzzleInput.third - 1)
+        val matchedInput: MatchResult = policyAndPasswordMatcher.find(puzzleInput)!!
+        val requiredChar = matchedInput.groupValues[3].first()
+        val first = matchedInput.groupValues[1].toInt()
+        val second = matchedInput.groupValues[2].toInt()
+        val password = matchedInput.groupValues[4]
+
+        return NewPasswordPolicy(requiredChar, first, second, password)
     }
 
-    private fun splitPuzzleInput(puzzleInput: String): Triple<Char, Int, Int> {
-        val splitInput = puzzleInput.split(' ')
-        val requiredChar = splitInput.last().first()
-
-        val splitOccuranceNumbers = splitInput.first().split('-')
-        val first = splitOccuranceNumbers.first().toInt()
-        val second = splitOccuranceNumbers.last().toInt()
-
-        return Triple(requiredChar, first, second)
-    }
+    private val policyAndPasswordMatcher = Regex("([\\d]*)-([\\d]*) ([a-z]): ([a-z]*)")
 }

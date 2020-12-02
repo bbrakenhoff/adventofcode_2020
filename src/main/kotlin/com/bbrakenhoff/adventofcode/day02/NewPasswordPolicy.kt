@@ -1,15 +1,12 @@
 package com.bbrakenhoff.adventofcode.day02
 
 @Suppress("DataClassPrivateConstructor")
-data class NewPasswordPolicy(
-    override val requiredChar: Char = ' ',
-    val firstAllowedPosition: Int = 0,
-    val secondAllowedPosition: Int = 0
-) : PasswordPolicy(requiredChar) {
+class NewPasswordPolicy(requiredChar: Char, firstAllowedPosition: Int, secondAllowedPosition: Int, password: String) :
+    PasswordPolicy(requiredChar, firstAllowedPosition, secondAllowedPosition, password) {
 
-    override fun isPasswordValid(password: String): Boolean {
-        val charAtFirstAllowedPosition = password[firstAllowedPosition]
-        val charAtSecondAllowedPosition = password[secondAllowedPosition]
+    override fun isPasswordValid(): Boolean {
+        val charAtFirstAllowedPosition = password[digitLeft - 1]
+        val charAtSecondAllowedPosition = password[digitRight - 1]
 
         val firstAllowedPositionsIsRequiredChar = charAtFirstAllowedPosition == requiredChar
         val secondAllowedPositionsIsRequiredChar = charAtSecondAllowedPosition == requiredChar

@@ -7,23 +7,23 @@ class PasswordPolicyFactoryTest {
 
     @Test
     fun `should create an old password policy from puzzle input`() {
-        val puzzleInput = "12-16 v"
+        val puzzleInput = "12-16 v: abcdef"
 
         val result = PasswordPolicyFactory.createOldPolicy(puzzleInput)
 
         result.requiredChar shouldBe 'v'
-        result.minOccurances shouldBe 12
-        result.maxOccurances shouldBe 16
+        result.digitLeft shouldBe 12
+        result.digitRight shouldBe 16
     }
 
     @Test
     fun `should create a password policy from puzzle input`() {
-        val puzzleInput = "12-16 v"
+        val puzzleInput = "3-13 s: qcvwtwstkvrrfzs"
 
         val result = PasswordPolicyFactory.createNewPolicy(puzzleInput)
 
-        result.requiredChar shouldBe 'v'
-        result.firstAllowedPosition shouldBe 11
-        result.secondAllowedPosition shouldBe 15
+        result.requiredChar shouldBe 's'
+        result.digitLeft shouldBe 3
+        result.digitRight shouldBe 13
     }
 }
