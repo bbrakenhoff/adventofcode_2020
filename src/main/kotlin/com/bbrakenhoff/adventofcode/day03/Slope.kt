@@ -2,25 +2,27 @@ package com.bbrakenhoff.adventofcode.day03
 
 import com.bbrakenhoff.adventofcode.PuzzleInputReader
 
-class Slope(private val verticalSteps: Int = 1, private val horizontalSteps: Int = 3) {
-
-    private val slopeMap = PuzzleInputReader.read(3)
+class Slope(private val horizontalSteps: Int, private val verticalSteps: Int) {
 
     fun countTreesInSlope(): Long {
-        val mapInitialWidth: Int = slopeMap.first().length
+        val mapInitialWidth: Int = SLOPE_MAP.first().length
         var currentPositionX: Int = 0
         var treeCount: Long = 0L
 
-        for (currentPositionY: Int in slopeMap.indices) {
-            val xInLine: Int = currentPositionX % mapInitialWidth
-            val charAtCurrPos: Char = slopeMap[currentPositionY][xInLine]
+        for (currentPositionY: Int in SLOPE_MAP.indices) {
 
-            if (charRepresentsTree(charAtCurrPos)) {
-                treeCount++
+            if (currentPositionY % verticalSteps == 0) {
+
+                val xInLine: Int = currentPositionX % mapInitialWidth
+                val charAtCurrPos: Char = SLOPE_MAP[currentPositionY][xInLine]
+
+                if (charRepresentsTree(charAtCurrPos)) {
+                    treeCount++
+                }
+
+//                println("xInLine: $xInLine, currPosX: $currentPositionX, charAt currPos: $charAtCurrPos, treeCount $treeCount")
+                currentPositionX += horizontalSteps
             }
-
-            println("xInLine: $xInLine, currPosX: $currentPositionX, charAt currPos: $charAtCurrPos, treeCount $treeCount")
-            currentPositionX += 3
         }
 
         return treeCount
@@ -28,4 +30,7 @@ class Slope(private val verticalSteps: Int = 1, private val horizontalSteps: Int
 
     private fun charRepresentsTree(charAtCurrentPosition: Char): Boolean = charAtCurrentPosition == '#'
 
+    companion object {
+        private val SLOPE_MAP: List<String> = PuzzleInputReader.read(3)
+    }
 }

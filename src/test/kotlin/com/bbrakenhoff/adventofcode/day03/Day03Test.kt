@@ -19,4 +19,11 @@ class Day03Test {
         val result: String = day03.partOne()
         result shouldBe expectedResult
     }
+
+    @Test
+    fun `solution part two`() {
+        val expectedResult: String = "6818112000L"
+        val result: String = day03.partTwo()
+        result shouldBe expectedResult
+    }
 }
