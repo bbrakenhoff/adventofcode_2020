@@ -7,9 +7,9 @@ class PasswordPolicyFactoryTest {
 
     @Test
     fun `should create an old password policy from puzzle input`() {
-        val puzzleInput = "12-16 v: abcdef"
+        val puzzleInput: String = "12-16 v: abcdef"
 
-        val result = PasswordPolicyFactory.createOldPolicy(puzzleInput)
+        val result: OldPasswordPolicy = PasswordPolicyFactory.createOldPolicy(puzzleInput)
 
         result.requiredChar shouldBe 'v'
         result.digitLeft shouldBe 12
@@ -18,9 +18,9 @@ class PasswordPolicyFactoryTest {
 
     @Test
     fun `should create a password policy from puzzle input`() {
-        val puzzleInput = "3-13 s: qcvwtwstkvrrfzs"
+        val puzzleInput: String = "3-13 s: qcvwtwstkvrrfzs"
 
-        val result = PasswordPolicyFactory.createNewPolicy(puzzleInput)
+        val result: NewPasswordPolicy = PasswordPolicyFactory.createNewPolicy(puzzleInput)
 
         result.requiredChar shouldBe 's'
         result.digitLeft shouldBe 3

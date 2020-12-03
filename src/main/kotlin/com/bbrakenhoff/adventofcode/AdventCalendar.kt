@@ -1,17 +1,19 @@
 package com.bbrakenhoff.adventofcode
 
+import java.lang.reflect.Constructor
+
 object AdventCalendar {
 
     fun print(focused: Boolean = true) {
-        println(CalendarHeader)
+        println(CALENDAR_HEADER)
         printDays(focused)
-        println(CalendarFooter)
+        println(CALENDAR_FOOTER)
     }
 
     private fun printDays(focused: Boolean) {
-        for (day in StartDay..TotalDays) {
-            val dayNumberText = buildDayNumberText(day)
-            val dayInstance = buildDayInstance(dayNumberText)
+        for (day: Int in START_DAY..TOTAL_DAYS) {
+            val dayNumberText: String = buildDayNumberText(day)
+            val dayInstance: Day? = buildDayInstance(dayNumberText)
             printDay(dayInstance, dayNumberText, focused)
         }
     }
@@ -21,12 +23,11 @@ object AdventCalendar {
     private fun buildDayInstance(dayNumberText: String): Day? {
         var dayInstance: Day? = null
         try {
-            val dayClassName = buildClassNameForDay(dayNumberText)
-            val dayClass = Class.forName(dayClassName)
-            val dayConstructor = dayClass.getConstructor()
+            val dayClassName: String = buildClassNameForDay(dayNumberText)
+            val dayClass: Class<*> = Class.forName(dayClassName)
+            val dayConstructor: Constructor<out Any> = dayClass.getConstructor()
             dayInstance = dayConstructor.newInstance() as Day
-        } catch (e: ClassNotFoundException) {
-            // Do nothing, just return null
+        } catch (e: ClassNotFoundException) { // Do nothing, just return null
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -34,10 +35,10 @@ object AdventCalendar {
         return dayInstance
     }
 
-    private fun buildClassNameForDay(dayNumberText: String): String = String.format(ClassName, dayNumberText, dayNumberText)
+    private fun buildClassNameForDay(dayNumberText: String): String = String.format(CLASS_NAME, dayNumberText, dayNumberText)
 
     private fun printDay(dayInstance: Day?, dayNumberText: String, focused: Boolean) {
-        val shouldPrint = !focused || (focused && dayInstance != null && dayInstance.enabledFocusedPrint)
+        val shouldPrint: Boolean = !focused || (focused && dayInstance != null && dayInstance.enabledFocusedPrint)
         if (shouldPrint) {
             printDayHeader(dayNumberText)
             printDayResult(dayInstance)
@@ -46,31 +47,31 @@ object AdventCalendar {
     }
 
     private fun printDayHeader(dayNumberText: String) {
-        println(String.format(DayHeader, dayNumberText))
+        println(String.format(DAY_HEADER, dayNumberText))
         println()
     }
 
     private fun printDayResult(dayInstance: Day?) {
-        val partOneResult = dayInstance?.partOne() ?: NotSolvedYet
-        println(String.format(DayPartOne, partOneResult))
+        val partOneResult: String = dayInstance?.partOne() ?: NOT_SOLVED_YET
+        println(String.format(DAY_PART_ONE, partOneResult))
 
-        val partTwoResult = dayInstance?.partTwo() ?: NotSolvedYet
-        println(String.format(DayPartTwo, partTwoResult))
+        val partTwoResult: String = dayInstance?.partTwo() ?: NOT_SOLVED_YET
+        println(String.format(DAY_PART_TWO, partTwoResult))
     }
 
     private fun printDayFooter() {
         println()
-        println(DayFooter)
+        println(DAY_FOOTER)
     }
 
-    private const val StartDay: Int = 1
-    private const val TotalDays: Int = 25
-    private const val ClassName = "com.bbrakenhoff.adventofcode.day%s.Day%s"
-    private const val CalendarHeader = "########################## Advent of Code 2020 ##########################"
-    private const val CalendarFooter = "#########################################################################"
-    private const val DayHeader = "================================= Day %s ================================"
-    private const val DayFooter = "========================================================================="
-    private const val NotSolvedYet = "NOT SOLVED YET"
-    private const val DayPartOne = "Part One: %s"
-    private const val DayPartTwo = "Part Two: %s"
+    private const val START_DAY: Int = 1
+    private const val TOTAL_DAYS: Int = 25
+    private const val CLASS_NAME: String = "com.bbrakenhoff.adventofcode.day%s.Day%s"
+    private const val CALENDAR_HEADER: String = "########################## Advent of Code 2020 ##########################"
+    private const val CALENDAR_FOOTER: String = "#########################################################################"
+    private const val DAY_HEADER: String = "================================= Day %s ================================"
+    private const val DAY_FOOTER: String = "========================================================================="
+    private const val NOT_SOLVED_YET: String = "NOT SOLVED YET"
+    private const val DAY_PART_ONE: String = "Part One: %s"
+    private const val DAY_PART_TWO: String = "Part Two: %s"
 }

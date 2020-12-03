@@ -5,7 +5,7 @@ class OldPasswordPolicy(requiredChar: Char, firstAllowedPosition: Int, secondAll
     PasswordPolicy(requiredChar, firstAllowedPosition, secondAllowedPosition, password) {
 
     override fun isPasswordValid(): Boolean {
-        val occurancesRequiredChar = password.count { it == requiredChar }
+        val occurancesRequiredChar: Int = password.count { it == requiredChar }
         return occurancesRequiredChar in digitLeft..digitRight
     }
 }

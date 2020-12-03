@@ -5,17 +5,17 @@ import com.bbrakenhoff.adventofcode.PuzzleInputReader
 
 class Day01 : Day {
 
-    private val expenseReport = PuzzleInputReader.read(1).map { it.toInt() }
+    private val expenseReport: List<Int> = PuzzleInputReader.read(1).map { it.toInt() }
 
     override val enabledFocusedPrint: Boolean = false
 
     override fun partOne(): String {
-        var expensePair = Pair(0, 0)
+        var expensePair: Pair<Int, Int> = Pair(0, 0)
 
-        outer@ for (indexOut in expenseReport.indices) {
-            val filteredPuzzleInput = filterAboveIndex(indexOut)
+        outer@ for (indexOut: Int in expenseReport.indices) {
+            val filteredPuzzleInput: List<Int> = filterAboveIndex(indexOut)
 
-            for (indexIn in filteredPuzzleInput.indices) {
+            for (indexIn: Int in filteredPuzzleInput.indices) {
                 expensePair = Pair(expenseReport[indexOut], filteredPuzzleInput[indexIn])
                 if (expensePairSumIs2020(expensePair)) {
                     break@outer
@@ -26,16 +26,16 @@ class Day01 : Day {
         return "${expensePair.first * expensePair.second}"
     }
 
-    private fun filterAboveIndex(indexOut: Int) = expenseReport.filterIndexed { indexIn, _ -> indexIn > indexOut }
+    private fun filterAboveIndex(indexOut: Int): List<Int> = expenseReport.filterIndexed { indexIn: Int, _ -> indexIn > indexOut }
 
-    private fun expensePairSumIs2020(expensePair: Pair<Int, Int>) = expensePair.first + expensePair.second == 2020
+    private fun expensePairSumIs2020(expensePair: Pair<Int, Int>): Boolean = expensePair.first + expensePair.second == 2020
 
     override fun partTwo(): String {
-        var expenseTriple = Triple(0, 0, 0)
+        var expenseTriple: Triple<Int, Int, Int> = Triple(0, 0, 0)
 
-        outer@ for (first in expenseReport) {
-            for (second in expenseReport) {
-                for (third in expenseReport) {
+        outer@ for (first: Int in expenseReport) {
+            for (second: Int in expenseReport) {
+                for (third: Int in expenseReport) {
                     expenseTriple = Triple(first, second, third)
                     if (expenseTripleSumIs2020(expenseTriple)) {
                         break@outer
@@ -47,5 +47,5 @@ class Day01 : Day {
         return "${expenseTriple.first * expenseTriple.second * expenseTriple.third}"
     }
 
-    private fun expenseTripleSumIs2020(expenseTriple: Triple<Int, Int, Int>) = expenseTriple.first + expenseTriple.second + expenseTriple.third == 2020
+    private fun expenseTripleSumIs2020(expenseTriple: Triple<Int, Int, Int>): Boolean = expenseTriple.first + expenseTriple.second + expenseTriple.third == 2020
 }

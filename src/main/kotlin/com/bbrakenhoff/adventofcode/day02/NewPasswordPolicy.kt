@@ -5,13 +5,13 @@ class NewPasswordPolicy(requiredChar: Char, firstAllowedPosition: Int, secondAll
     PasswordPolicy(requiredChar, firstAllowedPosition, secondAllowedPosition, password) {
 
     override fun isPasswordValid(): Boolean {
-        val charAtFirstAllowedPosition = password[digitLeft - 1]
-        val charAtSecondAllowedPosition = password[digitRight - 1]
+        val charAtFirstAllowedPosition: Char = password[digitLeft - 1]
+        val charAtSecondAllowedPosition: Char = password[digitRight - 1]
 
-        val firstAllowedPositionsIsRequiredChar = charAtFirstAllowedPosition == requiredChar
-        val secondAllowedPositionsIsRequiredChar = charAtSecondAllowedPosition == requiredChar
+        val firstAllowedPositionsIsRequiredChar: Boolean = charAtFirstAllowedPosition == requiredChar
+        val secondAllowedPositionsIsRequiredChar: Boolean = charAtSecondAllowedPosition == requiredChar
 
-        var isValid = firstAllowedPositionsIsRequiredChar
+        var isValid: Boolean = firstAllowedPositionsIsRequiredChar
 
         isValid = if (isValid) {
             !secondAllowedPositionsIsRequiredChar
