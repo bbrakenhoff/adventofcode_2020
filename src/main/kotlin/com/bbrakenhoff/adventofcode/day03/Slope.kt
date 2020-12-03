@@ -7,25 +7,17 @@ class Slope(private val horizontalSteps: Int, private val verticalSteps: Int) {
     fun countTreesInSlope(): Long {
         val mapInitialWidth: Int = SLOPE_MAP.first().length
         var currentPositionX: Int = 0
-        var treeCount: Long = 0L
 
-        for (currentPositionY: Int in SLOPE_MAP.indices) {
+        val passedLinesOnMap: List<String> = SLOPE_MAP.filterIndexed { currentPositionY: Int, _ -> currentPositionY % verticalSteps == 0 }
+        val squaresPassed: List<Char> = passedLinesOnMap.map { line: String ->
+            val xInLine: Int = currentPositionX % mapInitialWidth
+            val squarePassed: Char = line[xInLine]
+            currentPositionX += horizontalSteps
 
-            if (currentPositionY % verticalSteps == 0) {
-
-                val xInLine: Int = currentPositionX % mapInitialWidth
-                val charAtCurrPos: Char = SLOPE_MAP[currentPositionY][xInLine]
-
-                if (charRepresentsTree(charAtCurrPos)) {
-                    treeCount++
-                }
-
-//                println("xInLine: $xInLine, currPosX: $currentPositionX, charAt currPos: $charAtCurrPos, treeCount $treeCount")
-                currentPositionX += horizontalSteps
-            }
+            squarePassed
         }
-
-        return treeCount
+        val treesPassed: List<Char> = squaresPassed.filter { charRepresentsTree(it) }
+        return treesPassed.size.toLong()
     }
 
     private fun charRepresentsTree(charAtCurrentPosition: Char): Boolean = charAtCurrentPosition == '#'
