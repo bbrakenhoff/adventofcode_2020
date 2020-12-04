@@ -33,18 +33,17 @@ class Day04 : Day {
     }
 
     private fun createPassportFromBatchLine(singlePassportLines: MutableList<String>) {
-        val comb: String = singlePassportLines.joinToString(" ")
         val passport: Passport = Passport(singlePassportLines.joinToString(" "))
-        println(comb)
         passportBatch.add(passport)
     }
 
     override fun partOne(): String {
-        val countValidPassports: Int = passportBatch.count { it.isValid() }
+        val countValidPassports: Int = passportBatch.count { it.allFieldsPresent() }
         return "$countValidPassports"
     }
 
     override fun partTwo(): String {
-        return ""
+        val countValidPassports: Int = passportBatch.count { it.isValid() }
+        return "$countValidPassports"
     }
 }
