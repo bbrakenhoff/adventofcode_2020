@@ -16,6 +16,19 @@ class Day05 : Day {
     }
 
     override fun partTwo(): String {
-        return ""
+        val sortedSeatIds: List<Int> = boardingPasses.map { it.findSeatId() }.sorted()
+
+        var mySeatId = -1
+        var i = 0
+
+        while (mySeatId == -1 && i < sortedSeatIds.size) {
+            if (sortedSeatIds[i] + 2 == sortedSeatIds[i + 1]) {
+                mySeatId = sortedSeatIds[i] + 1
+            }
+
+            i++
+        }
+
+        return "$mySeatId"
     }
 }
