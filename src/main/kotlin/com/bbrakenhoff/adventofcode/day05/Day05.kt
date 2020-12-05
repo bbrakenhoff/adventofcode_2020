@@ -22,7 +22,7 @@ class Day05 : Day {
         var i = 0
 
         while (mySeatId == -1 && i < sortedSeatIds.size) {
-            if (sortedSeatIds[i] + 2 == sortedSeatIds[i + 1]) {
+            if (isMySeatInBetweenCurrentAndNext(sortedSeatIds, i)) {
                 mySeatId = sortedSeatIds[i] + 1
             }
 
@@ -30,5 +30,12 @@ class Day05 : Day {
         }
 
         return "$mySeatId"
+    }
+
+    private fun isMySeatInBetweenCurrentAndNext(sortedSeatIds: List<Int>, currentSeatIndex: Int): Boolean {
+        val currentSeatId: Int = sortedSeatIds[currentSeatIndex]
+        val nextSeatId: Int = sortedSeatIds[currentSeatIndex + 1]
+
+        return currentSeatId + 2 == nextSeatId
     }
 }
