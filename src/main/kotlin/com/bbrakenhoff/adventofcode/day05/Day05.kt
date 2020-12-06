@@ -5,7 +5,7 @@ import com.bbrakenhoff.adventofcode.PuzzleInputReader
 
 class Day05 : Day {
 
-    override val enabledFocusedPrint: Boolean = true
+    override val enabledFocusedPrint: Boolean = false
 
     private val boardingPasses: List<BoardingPass> = PuzzleInputReader.read(5).map { BoardingPass(it) }
 
