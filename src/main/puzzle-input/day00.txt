@@ -1,0 +1,14 @@
+Why was this puzzle so easy / hard?
+The difficulty and subject matter varies throughout each event.
+
+Why do the puzzles unlock at midnight EST/UTC-5?
+Because that's when I can consistently be available to make sure everything is working.
+
+How does authentication work?
+Advent of Code uses OAuth to confirm your identity through other services.
+
+I find the text on the site hard to read. Is there a high contrast mode?
+There is a high contrast alternate stylesheet.
+
+I have a puzzle idea! Can I send it to you?
+Please don't.

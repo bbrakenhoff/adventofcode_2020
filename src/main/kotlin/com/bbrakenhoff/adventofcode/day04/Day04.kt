@@ -7,7 +7,7 @@ class Day04 : Day {
 
     override val enabledFocusedPrint: Boolean = false
 
-    private val passportBatch: MutableList<Passport> = mutableListOf()
+    private var passportBatch: List<Passport> = mutableListOf()
 
     init {
         readPassports()
@@ -15,26 +15,8 @@ class Day04 : Day {
 
     private fun readPassports() {
         val rawPassportBatchLines: List<String> = PuzzleInputReader.read(4)
-
-        var singlePassportLines: MutableList<String> = mutableListOf()
-
-        rawPassportBatchLines.forEach {
-            if (it.isBlank()) {
-                createPassportFromBatchLine(singlePassportLines)
-                singlePassportLines = mutableListOf()
-            } else {
-                singlePassportLines.add(it)
-            }
-        }
-
-        if (singlePassportLines.isNotEmpty()) {
-            createPassportFromBatchLine(singlePassportLines)
-        }
-    }
-
-    private fun createPassportFromBatchLine(singlePassportLines: MutableList<String>) {
-        val passport: Passport = Passport(singlePassportLines.joinToString(" "))
-        passportBatch.add(passport)
+        val groupedPassportBatchLines: List<List<String>> = PuzzleInputReader.groupByBlankLines(rawPassportBatchLines)
+        passportBatch = groupedPassportBatchLines.map { Passport(it.joinToString(" ")) }
     }
 
     override fun partOne(): String {
