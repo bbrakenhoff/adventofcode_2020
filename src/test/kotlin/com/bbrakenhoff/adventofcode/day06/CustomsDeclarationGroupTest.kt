@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test
 
 class CustomsDeclarationGroupTest {
 
-    private lateinit var customsDeclarationGroup:CustomsDeclarationGroup
+    private lateinit var customsDeclarationGroup: CustomsDeclarationGroup
 
     @BeforeEach
-    fun beforeEach(){
+    fun beforeEach() {
         val groupAnswers: List<String> = listOf("abcx", "abcy", "abcz")
-        customsDeclarationGroup= CustomsDeclarationGroup(groupAnswers)
+        customsDeclarationGroup = CustomsDeclarationGroup(groupAnswers)
     }
 
     @Test
@@ -21,7 +21,7 @@ class CustomsDeclarationGroupTest {
     }
 
     @Test
-    fun `should count the answers everyone answered with 'yes'`(){
+    fun `should count the answers everyone answered with 'yes'`() {
         val count = customsDeclarationGroup.countUnanimouslyYesAnswers()
         count shouldBe 3
     }

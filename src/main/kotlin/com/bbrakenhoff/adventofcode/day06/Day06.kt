@@ -6,25 +6,25 @@ import com.bbrakenhoff.adventofcode.PuzzleInputReader
 class Day06 : Day {
     override val enabledFocusedPrint: Boolean = true
 
-    private val customsDeclarationGroups: List<CustomsDeclarationGroup>
+    private val customsDeclarationGroup: List<CustomsDeclarationGroup>
 
     init {
-        val rawCustomDeclarationAnswerLines: List<String> = PuzzleInputReader.read(6)
-        val groupedAnswerLines: List<List<String>> = PuzzleInputReader.groupByBlankLines(rawCustomDeclarationAnswerLines)
-        customsDeclarationGroups = groupedAnswerLines.map { CustomsDeclarationGroup(it) }
+        val rawCustomDeclarationLines: List<String> = PuzzleInputReader.read(6)
+        val rawCustomDeclarationGroupsLines: List<List<String>> = PuzzleInputReader.groupByBlankLines(rawCustomDeclarationLines)
+        customsDeclarationGroup = rawCustomDeclarationGroupsLines.map { CustomsDeclarationGroup(it) }
     }
 
     override fun partOne(): String {
-        val yesAnswerCountPerGroup: List<Int> = customsDeclarationGroups.map { it.countAllYesAnswers() }
-        val yesAnswerCount: Int = countAllYesAnswers(yesAnswerCountPerGroup)
-        return "$yesAnswerCount"
+        val yesAnswerCountPerGroup: List<Int> = customsDeclarationGroup.map { it.countAllYesAnswers() }
+        val totalYesAnswerCount: Int = sumYesAnswers(yesAnswerCountPerGroup)
+        return "$totalYesAnswerCount"
     }
 
-    private fun countAllYesAnswers(yesAnswerCountPerGroup: List<Int>): Int = yesAnswerCountPerGroup.fold(0, { total: Int, next: Int -> total + next })
+    private fun sumYesAnswers(yesAnswerCountPerGroup: List<Int>): Int = yesAnswerCountPerGroup.fold(0, { total: Int, next: Int -> total + next })
 
     override fun partTwo(): String {
-        val unanimouslyYesAnswerCountPerGroup = customsDeclarationGroups.map { it.countUnanimouslyYesAnswers() }
-        val yesAnswerCount: Int = countAllYesAnswers(unanimouslyYesAnswerCountPerGroup)
-        return "$yesAnswerCount"
+        val unanimouslyYesAnswerCountPerGroup = customsDeclarationGroup.map { it.countUnanimouslyYesAnswers() }
+        val totalYesAnswerCount: Int = sumYesAnswers(unanimouslyYesAnswerCountPerGroup)
+        return "$totalYesAnswerCount"
     }
 }

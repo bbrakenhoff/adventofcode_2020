@@ -1,21 +1,21 @@
 package com.bbrakenhoff.adventofcode.day06
 
-class CustomsDeclarationGroup(private val groupAnswers: List<String>) {
+class CustomsDeclarationGroup(private val questionsYesAnswered: List<String>) {
 
     fun countAllYesAnswers(): Int {
-        val answerSet: MutableSet<Char> = mutableSetOf()
+        val questionSet: MutableSet<Char> = mutableSetOf()
 
-        groupAnswers.joinToString("").map {
-            answerSet.add(it)
+        questionsYesAnswered.joinToString("").map {
+            questionSet.add(it)
         }
 
-        return answerSet.size
+        return questionSet.size
     }
 
     fun countUnanimouslyYesAnswers(): Int {
-        val groupedAnswers: Map<Char, List<Char>> = groupAnswers.joinToString("").groupBy { it }
-        val groupedAnswersCount: Map<Char, Int> = groupedAnswers.mapValues { it.value.size }
-        val unanimousAnswers: Map<Char, Int> = groupedAnswersCount.filter { it.value == groupAnswers.size }
-        return unanimousAnswers.size
+        val groupedQuestions: Map<Char, List<Char>> = questionsYesAnswered.joinToString("").groupBy { it }
+        val yesCountPerQuestion: Map<Char, Int> = groupedQuestions.mapValues { it.value.size }
+        val unanimousYesAnswers: Map<Char, Int> = yesCountPerQuestion.filter { it.value == questionsYesAnswered.size }
+        return unanimousYesAnswers.size
     }
 }
