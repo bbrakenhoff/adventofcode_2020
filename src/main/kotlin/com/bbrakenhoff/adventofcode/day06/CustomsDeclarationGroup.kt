@@ -6,7 +6,7 @@ class CustomsDeclarationGroup(private val questionsYesAnswered: List<String>) {
 
     fun countAllYesAnswers(): Int {
         val questionSet: MutableSet<Char> = mutableSetOf()
-        allQuestionsYesAnswered.map { questionSet.add(it) }
+        allQuestionsYesAnswered.forEach { questionSet.add(it) }
         return questionSet.size
     }
 
