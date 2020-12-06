@@ -6,16 +6,16 @@ import org.junit.jupiter.api.Test
 
 class Day06Test {
 
-    private lateinit var day06:Day06
+    private lateinit var day06: Day06
 
     @BeforeEach
-    fun beforeEach(){
-        day06=Day06()
+    fun beforeEach() {
+        day06 = Day06()
     }
 
     @Test
     fun `solution part one`() {
-        val expectedResult: String = "855"
+        val expectedResult: String = "6534"
         val result: String = day06.partOne()
         result shouldBe expectedResult
     }
