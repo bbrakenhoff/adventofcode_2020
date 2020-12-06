@@ -15,12 +15,16 @@ class Day06 : Day {
     }
 
     override fun partOne(): String {
-        val yesAnswerCountPerGroup = customsDeclarationGroups.map { it.countYesAnswers() }
-        val yesAnswerCount = yesAnswerCountPerGroup.fold(0, { total: Int, next: Int -> total + next })
+        val yesAnswerCountPerGroup: List<Int> = customsDeclarationGroups.map { it.countAllYesAnswers() }
+        val yesAnswerCount: Int = countAllYesAnswers(yesAnswerCountPerGroup)
         return "$yesAnswerCount"
     }
 
+    private fun countAllYesAnswers(yesAnswerCountPerGroup: List<Int>): Int = yesAnswerCountPerGroup.fold(0, { total: Int, next: Int -> total + next })
+
     override fun partTwo(): String {
-        return ""
+        val unanimouslyYesAnswerCountPerGroup = customsDeclarationGroups.map { it.countUnanimouslyYesAnswers() }
+        val yesAnswerCount: Int = countAllYesAnswers(unanimouslyYesAnswerCountPerGroup)
+        return "$yesAnswerCount"
     }
 }
