@@ -4,7 +4,8 @@ import com.bbrakenhoff.adventofcode.Day
 import com.bbrakenhoff.adventofcode.PuzzleInputReader
 
 class Day06 : Day {
-    override val enabledFocusedPrint: Boolean = true
+
+    override val enabledFocusedPrint: Boolean = false
 
     private val customsDeclarationGroup: List<CustomsDeclarationGroup>
 
