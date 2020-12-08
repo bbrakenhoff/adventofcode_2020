@@ -35,7 +35,7 @@ data class Bag(private val rule: String) {
         return bagsInside.any { it.second == bag }
     }
 
-    fun countBagsInside(): Int = bagsInside.fold(0, { total: Int, bag: Pair<Int, String> -> total + bag.first })
+    fun countBagsInside(): Int = bagsInside.sumBy { it.first }
 
     companion object {
         private val BAG_COLOR_REGEX: Regex = Regex("(.*) bags contain .*")

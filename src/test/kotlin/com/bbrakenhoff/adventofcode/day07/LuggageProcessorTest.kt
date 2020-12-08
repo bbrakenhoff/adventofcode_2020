@@ -1,6 +1,7 @@
 package com.bbrakenhoff.adventofcode.day07
 
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -17,6 +18,12 @@ class LuggageProcessorTest {
     fun `should find all the bags that can be used to carry given bag`() {
         val usableBags: List<Bag> = luggageProcessor.findBagsToCarry("shiny gold")
         usableBags.shouldContainExactlyInAnyOrder(listOf(Bag(RULES[2]), Bag(RULES[3]), Bag(RULES[1]), Bag(RULES[0])))
+    }
+
+    @Test
+    fun `should count bags neede to carry given bag`() {
+        val neededBags: Int = luggageProcessor.countBagsNeeded("shiny gold")
+        neededBags shouldBe 32
     }
 
     companion object {
