@@ -69,15 +69,14 @@ class GameConsole(private val rawInstructions: List<String>) {
             if (!isAnyInstructionExecutedTwice()) {
                 executeInstruction(currentInstruction)
             } else {
-                restart()
+                restartFixedBoot()
             }
         }
     }
 
-    fun isBootComplete(): Boolean = nextInstructionIndex >= instructions.size
+    private fun isBootComplete(): Boolean = nextInstructionIndex >= instructions.size
 
-    private fun restart() {
-        calculateNextJumpToReplace()
+    private fun restartFixedBoot() {
         replaceJumpWithNoOperationInstruction()
         reset()
         fixedBoot()
@@ -86,6 +85,20 @@ class GameConsole(private val rawInstructions: List<String>) {
     private fun reset() {
         nextInstructionIndex = 0
         _accumulator = 0
+    }
+
+    private fun replaceJumpWithNoOperationInstruction() {
+        calculateNextJumpToReplace()
+
+        instructions = rawInstructions.mapIndexed { i: Int, rawInstruction: String ->
+            var instruction: Instruction = Instruction.parseRaw(rawInstruction)
+
+            if (i == indexJumpToReplace) {
+                instruction = Instruction.NoOperation(1, true)
+            }
+
+            instruction
+        }
     }
 
     private fun calculateNextJumpToReplace() {
@@ -100,17 +113,5 @@ class GameConsole(private val rawInstructions: List<String>) {
         }
 
         indexJumpToReplace = i
-    }
-
-    private fun replaceJumpWithNoOperationInstruction() {
-        instructions = rawInstructions.mapIndexed { i: Int, rawInstruction: String ->
-            var instruction: Instruction = Instruction.parseRaw(rawInstruction)
-
-            if (i == indexJumpToReplace) {
-                instruction = Instruction.NoOperation(1, true)
-            }
-
-            instruction
-        }
     }
 }
