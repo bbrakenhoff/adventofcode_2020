@@ -17,7 +17,7 @@ class LuggageProcessor(rules: List<String>) {
 
     fun countBagsNeeded(bagToCarry: String, bagsNeeded: List<Bag> = bags): Int {
         val bagsToCarry: List<Bag> = bagsNeeded.filter { it.color == bagToCarry }
-        val bagsInsideBagsToCarry: List<Pair<Int, String>> = bagsToCarry.flatMap { it.bagsInside }
-        return 1 + bagsInsideBagsToCarry.map { it.first * countBagsNeeded(it.second) }.sum()
+        val bagsInsideBagsToCarry: List<Pair<String, Int>> = bagsToCarry.flatMap { it.bagsInside }
+        return 1 + bagsInsideBagsToCarry.map { it.second * countBagsNeeded(it.first) }.sum()
     }
 }
