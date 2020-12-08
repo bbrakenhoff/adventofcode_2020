@@ -9,16 +9,21 @@ class Day08 : Day {
 
     private val rawInstructions: List<String> = PuzzleInputReader.read(8)
 
-    override fun partOne(): String {
-        val gameConsole: GameConsole = GameConsole(rawInstructions)
-        gameConsole.boot()
+    private lateinit var gameConsole: GameConsole
 
-        return "${gameConsole.accumulator}"
+    override fun partOne(): String {
+        gameConsole = GameConsoleInfiniteBootLoop(rawInstructions)
+        return getAccumulator()
+    }
+
+    private fun getAccumulator(): String {
+        gameConsole.boot()
+        val accumulator = gameConsole.accumulator
+        return "$accumulator"
     }
 
     override fun partTwo(): String {
-        val gameConsole: GameConsole = GameConsole(rawInstructions)
-        gameConsole.fixedBoot()
-        return "${gameConsole.accumulator}"
+        gameConsole = GameConsoleFixed(rawInstructions)
+        return getAccumulator()
     }
 }
