@@ -5,7 +5,7 @@ import com.bbrakenhoff.adventofcode.PuzzleInputReader
 
 class Day07 : Day {
 
-    override val enabledFocusedPrint: Boolean = true
+    override val enabledFocusedPrint: Boolean = false
 
     private val luggageRules: List<String> = PuzzleInputReader.read(7)
     private val luggageProcessor: LuggageProcessor = LuggageProcessor(luggageRules)
