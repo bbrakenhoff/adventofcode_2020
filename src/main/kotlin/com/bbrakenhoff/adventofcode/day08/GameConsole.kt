@@ -18,6 +18,8 @@ class GameConsole(rawInstructions: List<String>) {
         }
     }
 
+    private fun isAnyInstructionExecutedTwice(): Boolean = instructions.any { it.executedTimes > 1 }
+
     private fun updateExecutedTimes(instruction: Instruction) {
         instruction.executedTimes++
     }
@@ -29,6 +31,14 @@ class GameConsole(rawInstructions: List<String>) {
             }
 
             calculateNextInstructionIndex(instruction)
+        }
+    }
+
+    private fun calculateAccumalator(instruction: Instruction.Accumalator) {
+        if (instruction.increase) {
+            _accumulator += instruction.amount
+        } else {
+            _accumulator -= instruction.amount
         }
     }
 
@@ -47,14 +57,4 @@ class GameConsole(rawInstructions: List<String>) {
             nextInstructionIndex -= instruction.amount
         }
     }
-
-    private fun calculateAccumalator(instruction: Instruction.Accumalator) {
-        if (instruction.increase) {
-            _accumulator += instruction.amount
-        } else {
-            _accumulator -= instruction.amount
-        }
-    }
-
-    private fun isAnyInstructionExecutedTwice() = instructions.any { it.executedTimes > 1 }
 }
