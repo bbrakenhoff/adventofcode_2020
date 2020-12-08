@@ -17,6 +17,7 @@ class Day07 : Day {
     }
 
     override fun partTwo(): String {
-        return ""
+        val countBagsNeeded: Int = luggageProcessor.countBagsNeeded("shiny gold") - 1
+        return "$countBagsNeeded"
     }
 }

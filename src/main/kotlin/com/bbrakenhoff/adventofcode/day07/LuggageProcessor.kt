@@ -15,17 +15,9 @@ class LuggageProcessor(rules: List<String>) {
         return usableBags.distinctBy { it.color }
     }
 
-    fun countBagsNeeded(bagToCarry: String, count: Int = 0): Int {
-        val bagsWithColorToCarry: MutableList<Bag> = bags.filter { it.color == bagToCarry }.toMutableList()
-        val directlyNeededBagsCount: Int = bagsWithColorToCarry.sumBy { it.countBagsInside() }
-        val newCount = count + directlyNeededBagsCount
-
-        val bagsInside: List<Pair<Int, String>> = bagsWithColorToCarry.filter { it.bagsInside.isNotEmpty() }.flatMap { it.bagsInside }
-        println("countBagsNeeded: $bagToCarry, $count $bagsInside")
-        bagsInside.forEach {
-            countBagsNeeded(it.second, newCount)
-        }
-
-        return newCount
+    fun countBagsNeeded(bagToCarry: String, bagsNeeded: List<Bag> = bags): Int {
+        val bagsToCarry: List<Bag> = bagsNeeded.filter { it.color == bagToCarry }
+        val bagsInsideBagsToCarry: List<Pair<Int, String>> = bagsToCarry.flatMap { it.bagsInside }
+        return 1 + bagsInsideBagsToCarry.map { it.first * countBagsNeeded(it.second) }.sum()
     }
 }

@@ -22,7 +22,7 @@ class LuggageProcessorTest {
 
     @Test
     fun `should count bags neede to carry given bag`() {
-        val neededBags: Int = luggageProcessor.countBagsNeeded("shiny gold")
+        val neededBags: Int = luggageProcessor.countBagsNeeded("shiny gold") - 1
         neededBags shouldBe 32
     }
 

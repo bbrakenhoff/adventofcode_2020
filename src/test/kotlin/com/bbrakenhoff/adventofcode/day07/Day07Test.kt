@@ -1,4 +1,4 @@
-package com.bbrakenhoff.adventofcode.day06
+package com.bbrakenhoff.adventofcode.day07
 
 import com.bbrakenhoff.adventofcode.day07.Day07
 import io.kotest.matchers.shouldBe
@@ -23,7 +23,7 @@ class Day07Test {
 
     @Test
     fun `solution part two`() {
-        val expectedResult: String = ""
+        val expectedResult: String = "3765"
         val result: String = day07.partTwo()
         result shouldBe expectedResult
     }
