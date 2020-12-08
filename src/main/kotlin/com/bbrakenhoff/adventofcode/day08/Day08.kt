@@ -19,7 +19,6 @@ class Day08 : Day {
     override fun partTwo(): String {
         val gameConsole: GameConsole = GameConsole(rawInstructions)
         gameConsole.fixedBoot()
-        println("is boot complete? ${gameConsole.isBootComplete()}")
         return "${gameConsole.accumulator}"
     }
 }
