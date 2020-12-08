@@ -5,9 +5,7 @@ class CustomsDeclarationGroup(private val questionsYesAnswered: List<String>) {
     private val allQuestionsYesAnswered = questionsYesAnswered.joinToString("")
 
     fun countAllYesAnswers(): Int {
-        val questionSet: MutableSet<Char> = mutableSetOf()
-        allQuestionsYesAnswered.forEach { questionSet.add(it) }
-        return questionSet.size
+        return allQuestionsYesAnswered.map { it }.distinct().size
     }
 
     fun countUnanimouslyYesAnswers(): Int {
