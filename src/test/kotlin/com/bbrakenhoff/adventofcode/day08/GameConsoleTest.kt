@@ -18,6 +18,13 @@ class GameConsoleTest {
         gameConsole.accumulator shouldBe 5
     }
 
+    @Test
+    fun `should return the value of accumulator when boot completed`() {
+        val gameConsole: GameConsole = GameConsole(RAW_INSTRUCTIONS)
+        gameConsole.fixedBoot()
+        gameConsole.accumulator shouldBe 8
+    }
+
     companion object {
         private val RAW_INSTRUCTIONS: List<String> = listOf("nop +0", "acc +1", "jmp +4", "acc +3", "jmp -3", "acc -99", "acc +1", "jmp -4", "acc +6")
     }

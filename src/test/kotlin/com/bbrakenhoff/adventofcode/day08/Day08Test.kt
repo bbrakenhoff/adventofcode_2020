@@ -22,7 +22,7 @@ class Day08Test {
 
     @Test
     fun `solution part two`() {
-        val expectedResult: String = ""
+        val expectedResult: String = "1539"
         val result: String = day08.partTwo()
         result shouldBe expectedResult
     }
