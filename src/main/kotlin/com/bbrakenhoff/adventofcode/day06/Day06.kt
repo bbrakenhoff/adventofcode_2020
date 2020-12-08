@@ -21,7 +21,7 @@ class Day06 : Day {
         return "$totalYesAnswerCount"
     }
 
-    private fun sumYesAnswers(yesAnswerCountPerGroup: List<Int>): Int = yesAnswerCountPerGroup.fold(0, { total: Int, next: Int -> total + next })
+    private fun sumYesAnswers(yesAnswerCountPerGroup: List<Int>): Int = yesAnswerCountPerGroup.sum()
 
     override fun partTwo(): String {
         val unanimouslyYesAnswerCountPerGroup = customsDeclarationGroup.map { it.countUnanimouslyYesAnswers() }
