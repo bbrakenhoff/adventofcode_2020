@@ -3,7 +3,6 @@ package com.bbrakenhoff.adventofcode.day07
 data class Bag(private val rule: String) {
 
     val color: String = BAG_COLOR_REGEX.matchEntire(rule)?.groupValues?.get(1).orEmpty()
-
     val bagsInside: List<Pair<String, Int>>
 
     init {

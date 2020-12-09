@@ -10,4 +10,6 @@ class GameConsoleInfiniteBootLoop(rawInstructions: List<String>) : GameConsole(r
             updateNextInstructionIndex()
         }
     }
+
+    override fun createInstructions(): List<Instruction> = rawInstructions.map { Instruction.parseRaw(it) }
 }

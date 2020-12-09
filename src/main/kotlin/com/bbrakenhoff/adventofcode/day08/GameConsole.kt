@@ -30,11 +30,11 @@ abstract class GameConsole(protected val rawInstructions: List<String>) {
         _instructions = createInstructions()
     }
 
-    protected open fun createInstructions(): List<Instruction> = rawInstructions.map { Instruction.parseRaw(it) }
+    protected abstract fun createInstructions(): List<Instruction>
 
     abstract fun boot()
 
-    protected fun isInInfiniteLoop() = instructions.any { it.executedTimes > 1 }
+    protected fun isInInfiniteLoop(): Boolean = instructions.any { it.executedTimes > 1 }
 
     protected fun updateAccumulator(instruction: Instruction) {
         _accumulator = instruction.calculateNewAccumulator(_accumulator)
