@@ -17,7 +17,7 @@ class GameConsoleFixed(rawInstructions: List<String>) : GameConsole(rawInstructi
         }
     }
 
-    private fun bootNotYetComplete() = nextInstructionIndex < instructions.size
+    private fun bootNotYetComplete(): Boolean = nextInstructionIndex < instructions.size
 
     override fun createInstructions(): List<Instruction> {
         return if (restartedBoot) {
@@ -39,9 +39,9 @@ class GameConsoleFixed(rawInstructions: List<String>) : GameConsole(rawInstructi
     }
 
     private fun calculateNextJumpToReplaceIndex() {
-        nextJumpToReplaceIndex++ // make sure the replace is at the jump
+        nextJumpToReplaceIndex++ // make sure the replace is at the next jump
 
-        var i = nextJumpToReplaceIndex
+        var i: Int = nextJumpToReplaceIndex
 
         while (instructions[i] !is Instruction.Jump) {
             i++

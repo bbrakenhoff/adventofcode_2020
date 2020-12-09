@@ -10,7 +10,7 @@ abstract class GameConsole(protected val rawInstructions: List<String>) {
     protected val nextInstructionIndex: Int
         get() = _nextInstructionIndex
 
-    private var _instructions: List<Instruction> = createInstructions()
+    private lateinit var _instructions: List<Instruction>
     protected val instructions: List<Instruction>
         get() = _instructions
 
@@ -18,9 +18,21 @@ abstract class GameConsole(protected val rawInstructions: List<String>) {
     protected val restartedBoot: Boolean
         get() = _restartedBoot
 
-    abstract fun boot()
+    init {
+        updateInstructions()
+    }
+
+    /**
+     * Use method for initializing instructions, otherwhise might cause leaks through derived classes
+     * See [stackoverflow](https://stackoverflow.com/a/50222496/2670098) for explanation
+     */
+    private fun updateInstructions() {
+        _instructions = createInstructions()
+    }
 
     protected open fun createInstructions(): List<Instruction> = rawInstructions.map { Instruction.parseRaw(it) }
+
+    abstract fun boot()
 
     protected fun isInInfiniteLoop() = instructions.any { it.executedTimes > 1 }
 
@@ -38,7 +50,7 @@ abstract class GameConsole(protected val rawInstructions: List<String>) {
         _restartedBoot = true
         _accumulator = 0
         _nextInstructionIndex = 0
-        _instructions = createInstructions()
+        updateInstructions()
         boot()
     }
 }

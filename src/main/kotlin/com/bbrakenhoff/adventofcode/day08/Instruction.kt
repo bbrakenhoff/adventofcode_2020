@@ -5,7 +5,7 @@ sealed class Instruction(open val amount: Int, open val increase: Boolean, var e
     data class Accumulator(override val amount: Int, override val increase: Boolean) : Instruction(amount, increase) {
 
         override fun calculateNewAccumulator(accumulator: Int): Int {
-            var newAccumulator = accumulator
+            var newAccumulator: Int = accumulator
 
             if (notYetExecuted()) {
                 newAccumulator = if (increase) {
@@ -19,7 +19,6 @@ sealed class Instruction(open val amount: Int, open val increase: Boolean, var e
         }
 
         private fun notYetExecuted(): Boolean = executedTimes == 0
-
 
         override fun calculateNextInstructionIndex(nextInstructionIndex: Int): Int = nextInstructionIndex + 1
     }
@@ -55,8 +54,7 @@ sealed class Instruction(open val amount: Int, open val increase: Boolean, var e
             val instructionRegexResult: MatchResult? = INSTRUCTION_REGEX.matchEntire(rawInstruction)
             val type: String = instructionRegexResult?.groupValues?.get(1).orEmpty()
             val increase: Boolean = instructionRegexResult?.groupValues?.get(2) == "+"
-            val amount: Int = instructionRegexResult?.groupValues?.get(3)?.toInt()
-                ?: 0
+            val amount: Int = instructionRegexResult?.groupValues?.get(3)?.toInt() ?: 0
 
             return when (type) {
                 "jmp" -> Jump(amount, increase)
