@@ -15,7 +15,7 @@ class Day01Test {
 
     @Test
     fun `solution part one`() {
-        day01.partOne() shouldBe 866436
+        day01.partOne() shouldBe "866436"
     }
 
     @Test

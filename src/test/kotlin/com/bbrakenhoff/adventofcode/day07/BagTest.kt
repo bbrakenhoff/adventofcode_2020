@@ -21,10 +21,10 @@ class BagTest {
         val luggageProcessor = Bag(rule)
 
         luggageProcessor.color shouldBe "faded olive"
-        luggageProcessor.bagsInside.shouldContainExactlyInAnyOrder(listOf(Pair(1, "bright crimson"),
-            Pair(15, "dotted green"),
-            Pair(5, "dull bronze"),
-            Pair(2, "posh turquoise")))
+        luggageProcessor.bagsInside.shouldContainExactlyInAnyOrder(listOf(Pair("bright crimson", 1),
+                                                                          Pair("dotted green", 15),
+                                                                          Pair("dull bronze", 5),
+                                                                          Pair("posh turquoise", 2)))
     }
 
     @Test
