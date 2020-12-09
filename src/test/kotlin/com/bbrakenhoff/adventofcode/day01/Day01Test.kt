@@ -15,15 +15,11 @@ class Day01Test {
 
     @Test
     fun `solution part one`() {
-        val expectedResult: String = "866436"
-        val result: String = day01.partOne()
-        result shouldBe expectedResult
+        day01.partOne() shouldBe 866436
     }
 
     @Test
     fun `solution part two`() {
-        val expectedResult: String = "276650720"
-        val result: String = day01.partTwo()
-        result shouldBe expectedResult
+        day01.partTwo() shouldBe "276650720"
     }
 }
