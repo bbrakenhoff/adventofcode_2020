@@ -11,12 +11,12 @@ class Day09 : Day {
     private val xmasDecryptor: XmasDecryptor = XmasDecryptor(numbers, 25)
 
     override fun partOne(): String {
-        val firstError = xmasDecryptor.findFirstError()
+        val firstError = xmasDecryptor.findFirstInvalidNumber()
         return "$firstError"
     }
 
     override fun partTwo(): String {
-        val encryptionWeakness = xmasDecryptor.findSumFirstError()
+        val encryptionWeakness = xmasDecryptor.findEncryptionWeakness()
         return "$encryptionWeakness"
     }
 }

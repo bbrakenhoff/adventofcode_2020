@@ -2,17 +2,17 @@ package com.bbrakenhoff.adventofcode.day09
 
 class XmasDecryptor(private val numbers: List<Long>, private val preamble: Int) {
 
-    fun findFirstError(): Long {
-        var i = preamble
-        var errorFound = false
-        var invalidNumber = -1L
+    fun findFirstInvalidNumber(): Long {
+        var i: Int = preamble
+        var invalidNumberFound: Boolean = false
+        var invalidNumber: Long = -1L
 
-        while (!errorFound) {
-            val previousNumbers = numbers.subList(i - preamble, i)
-            val other = previousNumbers.find { previousNumbers.contains(numbers[i] - it) }
+        while (!invalidNumberFound) {
+            val previousNumbers: List<Long> = numbers.subList(i - preamble, i)
+            val foundNumberInPreviousNumbers = findNumberInPreviousNumbers(previousNumbers, i)
 
-            if (other == null) {
-                errorFound = true
+            if (!foundNumberInPreviousNumbers) {
+                invalidNumberFound = true
                 invalidNumber = numbers[i]
             }
 
@@ -22,8 +22,11 @@ class XmasDecryptor(private val numbers: List<Long>, private val preamble: Int) 
         return invalidNumber
     }
 
-    fun findSumFirstError(): Long {
-        val firstError = findFirstError()
+    private fun findNumberInPreviousNumbers(previousNumbers: List<Long>, i: Int): Boolean =
+        previousNumbers.any { previousNumbers.contains(numbers[i] - it) }
+
+    fun findEncryptionWeakness(): Long {
+        val firstError = findFirstInvalidNumber()
 
         var firstIndex = 0
         var previousNumbers = numbers.subList(firstIndex, numbers.indexOf(firstError))
