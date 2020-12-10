@@ -8,20 +8,15 @@ class Day10 : Day {
     override val enabledFocusedPrint: Boolean = true
 
     private val outputJoltage: List<Int> = PuzzleInputReader.read(10).map { it.toInt() }
+    private val joltageAdapters = JoltageAdapters(outputJoltage)
 
     override fun partOne(): String {
-        val adapters = JoltageAdapterFinder(outputJoltage)
-        adapters.find()
-        val differenceBy1 = adapters.differences1Jolt
-        val differenceBy3 = adapters.differences3Jolt
-        val multiply = differenceBy1 * differenceBy3
-
-        return "$multiply"
+        val joltDifferences: Pair<Int, Int> = joltageAdapters.findJoltRatings()
+        val multipliedJoltDifferences: Int = joltDifferences.first * joltDifferences.second
+        return "$multipliedJoltDifferences"
     }
 
     override fun partTwo(): String {
-        val adapters = JoltageAdapterFinder(outputJoltage)
-        val arrangements = adapters.findPermutationCount()
-        return "$arrangements"
+        return "${joltageAdapters.findPossibleAdapterArrangments()}"
     }
 }
