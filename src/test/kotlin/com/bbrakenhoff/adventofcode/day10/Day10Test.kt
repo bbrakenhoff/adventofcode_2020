@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class Day10Test {
+
     private lateinit var day10: Day10
 
     @BeforeEach
