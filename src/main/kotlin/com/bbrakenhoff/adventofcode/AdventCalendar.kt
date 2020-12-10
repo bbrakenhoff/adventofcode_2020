@@ -52,12 +52,15 @@ object AdventCalendar {
     }
 
     private fun printDayResult(dayInstance: Day?) {
-        val partOneResult: String = dayInstance?.partOne() ?: NOT_SOLVED_YET
-        println(String.format(DAY_PART_ONE, partOneResult))
+        val answerPartOne: String = answerText(dayInstance?.partOne())
+        println(String.format(DAY_PART_ONE, answerPartOne))
 
-        val partTwoResult: String = dayInstance?.partTwo() ?: NOT_SOLVED_YET
-        println(String.format(DAY_PART_TWO, partTwoResult))
+        val answerPartTwo: String = answerText(dayInstance?.partTwo())
+        println(String.format(DAY_PART_TWO, answerPartTwo))
     }
+
+    private fun answerText(solution: String?): String = solution?.ifBlank { NOT_SOLVED_YET }
+        ?: NOT_SOLVED_YET
 
     private fun printDayFooter() {
         println()
