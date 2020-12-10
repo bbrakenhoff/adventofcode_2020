@@ -16,13 +16,11 @@ class CustomsDeclarationGroupTest {
 
     @Test
     fun `should count the answers that have been answered with 'yes'`() {
-        val count = customsDeclarationGroup.countAllYesAnswers()
-        count shouldBe 6
+        customsDeclarationGroup.countAllYesAnswers() shouldBe 6
     }
 
     @Test
     fun `should count the answers everyone answered with 'yes'`() {
-        val count = customsDeclarationGroup.countUnanimouslyYesAnswers()
-        count shouldBe 3
+        customsDeclarationGroup.countUnanimouslyYesAnswers() shouldBe 3
     }
 }

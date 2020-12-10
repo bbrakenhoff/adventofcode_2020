@@ -12,8 +12,7 @@ class SlopeTest {
                 "#...##....#", ".#..#...#.#")
 
         val slope = Slope(slopeMap, 3, 1)
-        val countedTrees = slope.countTreesInSlope()
 
-        countedTrees shouldBe 7
+            slope.countTreesInSlope() shouldBe 7
     }
 }

@@ -9,9 +9,8 @@ class BoardingPassTest {
     fun `should find single id`() {
         val text: String = "FBFBBFFRLR"
         val boardingPass = BoardingPass(text)
-        val id = boardingPass.findSeatId()
 
-        id shouldBe 357
+        boardingPass.findSeatId() shouldBe 357
     }
 
     @Test
@@ -20,8 +19,7 @@ class BoardingPassTest {
 
         boardingPassTextIdMap.forEach {
             val boardingPass = BoardingPass(it.key)
-            val id = boardingPass.findSeatId()
-            id shouldBe it.value
+            boardingPass.findSeatId() shouldBe it.value
         }
     }
 }

@@ -10,9 +10,7 @@ class OldPasswordPolicyTest {
         val password: String = "cdefg"
         val policy: OldPasswordPolicy = PasswordPolicyFactory.createOldPolicy("1-3 b: $password")
 
-        val isValid: Boolean = policy.isPasswordValid()
-
-        isValid shouldBe false
+        policy.isPasswordValid() shouldBe false
     }
 
     @Test
@@ -20,9 +18,7 @@ class OldPasswordPolicyTest {
         val password: String = "abcdeaaa"
         val policy: OldPasswordPolicy = PasswordPolicyFactory.createOldPolicy("1-3 a: $password")
 
-        val isValid: Boolean = policy.isPasswordValid()
-
-        isValid shouldBe false
+        policy.isPasswordValid() shouldBe false
     }
 
     @Test
@@ -30,8 +26,6 @@ class OldPasswordPolicyTest {
         val password: String = "abcde"
         val policy: OldPasswordPolicy = PasswordPolicyFactory.createOldPolicy("1-3 a: $password")
 
-        val isValid: Boolean = policy.isPasswordValid()
-
-        isValid shouldBe true
+        policy.isPasswordValid() shouldBe true
     }
 }

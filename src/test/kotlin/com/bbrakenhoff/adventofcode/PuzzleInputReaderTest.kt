@@ -22,9 +22,8 @@ internal class PuzzleInputReaderTest {
                 "",
                 "I have a puzzle idea! Can I send it to you?",
                 "Please don't.")
-        val puzzleInput: List<String> = PuzzleInputReader.read(0)
 
-        puzzleInput shouldBe expectedList
+        PuzzleInputReader.read(0) shouldBe expectedList
     }
 
     @Test
@@ -38,8 +37,6 @@ internal class PuzzleInputReaderTest {
                 listOf("I have a puzzle idea! Can I send it to you?", "Please don't."))
 
         val puzzleInput: List<String> = PuzzleInputReader.read(0)
-        val groupedPuzzleInput = PuzzleInputReader.groupByBlankLines(puzzleInput)
-
-        groupedPuzzleInput shouldBe expectedList
+        PuzzleInputReader.groupByBlankLines(puzzleInput) shouldBe expectedList
     }
 }

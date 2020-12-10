@@ -22,9 +22,9 @@ class BagTest {
 
         luggageProcessor.color shouldBe "faded olive"
         luggageProcessor.bagsInside.shouldContainExactlyInAnyOrder(listOf(Pair("bright crimson", 1),
-                                                                          Pair("dotted green", 15),
-                                                                          Pair("dull bronze", 5),
-                                                                          Pair("posh turquoise", 2)))
+            Pair("dotted green", 15),
+            Pair("dull bronze", 5),
+            Pair("posh turquoise", 2)))
     }
 
     @Test
@@ -32,8 +32,7 @@ class BagTest {
         val rule: String = "dull white bags contain no other bags."
         val luggageProcessor = Bag(rule)
 
-        val canContainBag: Boolean = luggageProcessor.canContainBag("shiny gold")
-        canContainBag shouldBe false
+        luggageProcessor.canContainBag("shiny gold") shouldBe false
     }
 
     @Test
@@ -41,8 +40,7 @@ class BagTest {
         val rule: String = "faded olive bags contain 12 bright crimson bags, 5 dotted green bags, 5 dull bronze bags, 2 posh turquoise bags."
         val luggageProcessor = Bag(rule)
 
-        val canContainBag: Boolean = luggageProcessor.canContainBag("shiny gold")
-        canContainBag shouldBe false
+        luggageProcessor.canContainBag("shiny gold") shouldBe false
     }
 
     @Test
@@ -50,7 +48,6 @@ class BagTest {
         val rule: String = "faded olive bags contain 1 bright crimson bag, 15 dotted green bags, 5 dull bronze bags, 2 posh turquoise bags."
         val luggageProcessor = Bag(rule)
 
-        val canContainBag: Boolean = luggageProcessor.canContainBag("posh turquoise")
-        canContainBag shouldBe true
+        luggageProcessor.canContainBag("posh turquoise") shouldBe true
     }
 }
