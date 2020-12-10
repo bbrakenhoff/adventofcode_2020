@@ -8,14 +8,15 @@ class Day09 : Day {
     override val enabledFocusedPrint: Boolean = true
 
     private val numbers: List<Long> = PuzzleInputReader.read(9).map { it.toLong() }
+    private val xmasDecryptor: XmasDecryptor = XmasDecryptor(numbers, 25)
 
     override fun partOne(): String {
-        val xmasDecryptor: XmasDecryptor = XmasDecryptor(numbers, 25)
         val firstError = xmasDecryptor.findFirstError()
         return "$firstError"
     }
 
     override fun partTwo(): String {
-        return ""
+        val encryptionWeakness = xmasDecryptor.findSumFirstError()
+        return "$encryptionWeakness"
     }
 }

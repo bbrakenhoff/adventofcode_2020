@@ -21,4 +21,37 @@ class XmasDecryptor(private val numbers: List<Long>, private val preamble: Int) 
 
         return invalidNumber
     }
+
+    fun findSumFirstError(): Long {
+        val firstError = findFirstError()
+
+        var firstIndex = 0
+        var previousNumbers = numbers.subList(firstIndex, numbers.indexOf(firstError))
+
+        var sumFound = false
+        var i = 0
+        val sumList = mutableListOf<Long>()
+
+        while (!sumFound) {
+            val number = previousNumbers[i]
+
+            sumList.add(number)
+            val sum = sumList.sum()
+            if (sum == firstError) {
+                sumFound = true
+            } else {
+
+                i++
+
+                if (i == previousNumbers.size) {
+                    i = 0
+                    firstIndex++
+                    previousNumbers = numbers.subList(firstIndex, numbers.indexOf(firstError))
+                    sumList.clear()
+                }
+            }
+        }
+
+        return sumList.min()!!.plus(sumList.max()!!)
+    }
 }
