@@ -9,9 +9,6 @@ class JoltageAdapterFinder(outputJoltage: List<Int>) {
     val highestRatedAdapter: Int
         get() = 3 + outputJoltage.max()!!
 
-    private val expected =
-        listOf(Pair(1, 4), Pair(4, 5), Pair(5, 6), Pair(6, 7), Pair(7, 10), Pair(10, 11), Pair(11, 12), Pair(12, 15), Pair(15, 16), Pair(16, 19), Pair(19, 22))
-
     fun find(): List<Pair<Int, Int>> {
         val result = outputJoltage.mapIndexed { i: Int, joltage: Int ->
             var adapter = 0
@@ -28,9 +25,6 @@ class JoltageAdapterFinder(outputJoltage: List<Int>) {
             }
             Pair(joltage, adapter)
         }
-        println("expected: $expected")
-        println("calculat: $result")
-        println("hgihest rated adapter: $highestRatedAdapter")
         findJoltDifferences(result)
         return result
     }
@@ -53,9 +47,5 @@ class JoltageAdapterFinder(outputJoltage: List<Int>) {
         }
 
         return permutationCount.last()
-    }
-
-    companion object {
-        private const val CHARGING_OUTLET: Int = 0 // -> adapter 1, 2, 3 // 1 jolt -> adapter 4
     }
 }
