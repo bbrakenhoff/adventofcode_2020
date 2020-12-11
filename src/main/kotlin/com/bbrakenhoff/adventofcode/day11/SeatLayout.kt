@@ -2,13 +2,13 @@ package com.bbrakenhoff.adventofcode.day11
 
 class SeatLayout(private var seatLayout: MutableList<String>) {
 
-    private fun mapToSeats(layout: List<String>) = layout.mapIndexed { y: Int, line: String ->
+    fun mapToSeats(layout: List<String>): List<List<Seat>> = layout.mapIndexed { y: Int, line: String ->
         line.mapIndexed { x: Int, c: Char ->
             Seat(x to y, c)
         }
     }
 
-    fun findFinalSeatPlan(): List<String> {
+    fun findFinalSeatLayout(): List<String> {
 
         var seatsShuffledCount = -1
 
