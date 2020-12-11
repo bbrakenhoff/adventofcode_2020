@@ -95,57 +95,57 @@ class SeatTest {
         occupiedSeat.isOccupied shouldBe true
     }
 
-    @Test
-    fun `should do nothing when clearing and layout position is floor`() {
-        val floor: Seat = createFloor()
-        floor.clear()
-
-        floor.isFloor shouldBe true
-        floor.isOccupied shouldBe false
-    }
-
-    @Test
-    fun `should do nothing when clearing an empty seat`() {
-        val emptySeat: Seat = createEmptySeat()
-        emptySeat.clear()
-
-        emptySeat.isFloor shouldBe false
-        emptySeat.isOccupied shouldBe false
-    }
-
-    @Test
-    fun `should clear an occupied seat`() {
-        val occupiedSeat: Seat = createOccupiedSeat()
-        occupiedSeat.clear()
-
-        occupiedSeat.isFloor shouldBe false
-        occupiedSeat.isOccupied shouldBe false
-    }
-
-    @Test
-    fun `should do nothing when occupy and seat is actually floor`() {
-        val floor: Seat = createFloor()
-        floor.occupy()
-
-        floor.isFloor shouldBe true
-        floor.isOccupied shouldBe false
-    }
-
-    @Test
-    fun `should do nothing when occupying an occupied seat`() {
-        val occupiedSeat: Seat = createOccupiedSeat()
-        occupiedSeat.occupy()
-
-        occupiedSeat.isFloor shouldBe false
-        occupiedSeat.isOccupied shouldBe true
-    }
-
-    @Test
-    fun `should occupy an empty seat`() {
-        val emptySeat: Seat = createEmptySeat()
-        emptySeat.occupy()
-
-        emptySeat.isFloor shouldBe false
-        emptySeat.isOccupied shouldBe true
-    }
+//    @Test
+//    fun `should do nothing when clearing and layout position is floor`() {
+//        val floor: Seat = createFloor()
+//        floor.clear()
+//
+//        floor.isFloor shouldBe true
+//        floor.isOccupied shouldBe false
+//    }
+//
+//    @Test
+//    fun `should do nothing when clearing an empty seat`() {
+//        val emptySeat: Seat = createEmptySeat()
+//        emptySeat.clear()
+//
+//        emptySeat.isFloor shouldBe false
+//        emptySeat.isOccupied shouldBe false
+//    }
+//
+//    @Test
+//    fun `should clear an occupied seat`() {
+//        val occupiedSeat: Seat = createOccupiedSeat()
+//        occupiedSeat.clear()
+//
+//        occupiedSeat.isFloor shouldBe false
+//        occupiedSeat.isOccupied shouldBe false
+//    }
+//
+//    @Test
+//    fun `should do nothing when occupy and seat is actually floor`() {
+//        val floor: Seat = createFloor()
+//        floor.occupy()
+//
+//        floor.isFloor shouldBe true
+//        floor.isOccupied shouldBe false
+//    }
+//
+//    @Test
+//    fun `should do nothing when occupying an occupied seat`() {
+//        val occupiedSeat: Seat = createOccupiedSeat()
+//        occupiedSeat.occupy()
+//
+//        occupiedSeat.isFloor shouldBe false
+//        occupiedSeat.isOccupied shouldBe true
+//    }
+//
+//    @Test
+//    fun `should occupy an empty seat`() {
+//        val emptySeat: Seat = createEmptySeat()
+//        emptySeat.occupy()
+//
+//        emptySeat.isFloor shouldBe false
+//        emptySeat.isOccupied shouldBe true
+//    }
 }

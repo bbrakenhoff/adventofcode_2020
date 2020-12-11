@@ -1,6 +1,6 @@
 package com.bbrakenhoff.adventofcode.day11
 
-import io.kotest.matchers.collections.shouldContainExactly
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
 class SeatLayoutTest {
@@ -8,7 +8,7 @@ class SeatLayoutTest {
     @Test
     fun `should shuffle seats until no changes made anymore`() {
         val seatLayout: SeatLayout = SeatLayout(INITIAL_SEAT_LAYOUT.toMutableList())
-        seatLayout.findFinalSeatPlan().shouldContainExactly(FINAL_SEAT_LAYOUT)
+        seatLayout.findFinalSeatPlan() shouldBe FINAL_SEAT_LAYOUT
     }
 
     companion object {

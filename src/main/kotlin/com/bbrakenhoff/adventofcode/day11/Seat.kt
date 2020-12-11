@@ -28,17 +28,17 @@ data class Seat(val position: Pair<Int, Int>, private var _char: Char) {
 
     fun positionLeftBottom(): Pair<Int, Int> = position.first - 1 to position.second + 1
 
-    fun clear() {
-        if (!isFloor) {
-            _char = EMPTY_SEAT
-        }
-    }
-
-    fun occupy() {
-        if (!isFloor) {
-            _char = OCCUPIED_SEAT
-        }
-    }
+//    fun clear() {
+//        if (!isFloor) {
+//            _char = EMPTY_SEAT
+//        }
+//    }
+//
+//    fun occupy() {
+//        if (!isFloor) {
+//            _char = OCCUPIED_SEAT
+//        }
+//    }
 
     companion object {
         private const val EMPTY_SEAT: Char = 'L'

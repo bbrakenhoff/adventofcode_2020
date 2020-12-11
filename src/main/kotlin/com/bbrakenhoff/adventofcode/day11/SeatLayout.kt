@@ -9,37 +9,19 @@ class SeatLayout(private var seatLayout: MutableList<String>) {
     }
 
     fun findFinalSeatPlan(): List<String> {
-        print()
-        var count: Int = shuffleSeats()
-        println("count $count")
-        print()
 
-        count = shuffleSeats()
-        println("count $count")
-        print()
+        var seatsShuffledCount = -1
 
-        count = shuffleSeats()
-        println("count $count")
-        print()
-
-        count = shuffleSeats()
-        println("count $count")
-        print()
-
-        count = shuffleSeats()
-        println("count $count")
-        print()
-
-        count = shuffleSeats()
-        println("count $count")
-        print()
+        while (seatsShuffledCount != 0) {
+            seatsShuffledCount = shuffleSeats()
+        }
 
         return seatLayout
     }
 
-    private fun print() {
+    private fun print(layout: List<String> = seatLayout) {
         println("-----------")
-        seatLayout.forEach { println(it) }
+        layout.forEach { println(it) }
         println("-----------")
     }
 
@@ -52,8 +34,11 @@ class SeatLayout(private var seatLayout: MutableList<String>) {
         var shuffledSeatsCount = 0
 
         val old = seatLayout.toList()
-        val seats = mapToSeats(seatLayout)
-        println("shuffleSeats before! ${seatsToLayout(seats) == seatLayout}")
+
+        println("Before")
+        print(old)
+
+        val seats = mapToSeats(old)
         seats.forEach { row: List<Seat> ->
             row.forEach { seat: Seat ->
                 if (!seat.isFloor) {
@@ -64,34 +49,43 @@ class SeatLayout(private var seatLayout: MutableList<String>) {
                         val rowCharArray = seatLayout[seat.position.second].toCharArray()
                         rowCharArray[seat.position.first] = '#'
                         seatLayout[seat.position.second] = String(rowCharArray)
+                        println("seat mag niet veranderen!!!! ${seat.char == 'L'}")
                     } else if (seat.isOccupied && adjacentSeats.count { it.isOccupied } >= 4) { //                            replaceSeat(x, y, 'L')
                         shuffledSeatsCount++ //                        findSeat(seat.position, seats).clear()
                         val rowCharArray = seatLayout[seat.position.second].toCharArray()
                         rowCharArray[seat.position.first] = 'L'
                         seatLayout[seat.position.second] = String(rowCharArray)
+                        println("Pizzaa pizza!!!! ${seat.char == '#'} ")
                     }
                 }
             }
         }
 
-        println("shuffleSeats after! ${old != seatLayout}")
+        println("shuffleSeats after!")
+        print(seatLayout)
         return shuffledSeatsCount
     }
 
-    private fun findSeat(position: Pair<Int, Int>, s: List<List<Seat>>): Seat = s[position.first][position.second]
+    private fun findSeat(position: Pair<Int, Int>, s: List<List<Seat>>): Seat = s[position.second][position.first]
 
     private fun findAdjacentSeats(currentPosition: Seat, s: List<List<Seat>>): List<Seat> { // seat above
         val adjacentPositions: List<Pair<Int, Int>> =
             listOf(currentPosition.positionTop(),
-                   currentPosition.positionRightTop(),
-                   currentPosition.positionRight(),
-                   currentPosition.positionRightBottom(),
-                   currentPosition.positionBottom(),
-                   currentPosition.positionLeftBottom(),
-                   currentPosition.positionLeft(),
-                   currentPosition.positionLeftTop()).filter {
-                it.first >= 0 && it.first < seatLayout.first().length && it.second >= 0 && it.second < seatLayout.size
-            }
-        return adjacentPositions.map { findSeat(it, s) }.filter { !it.isFloor }
+                currentPosition.positionRightTop(),
+                currentPosition.positionRight(),
+                currentPosition.positionRightBottom(),
+                currentPosition.positionBottom(),
+                currentPosition.positionLeftBottom(),
+                currentPosition.positionLeft(),
+                currentPosition.positionLeftTop())
+
+        val filtered = adjacentPositions.filter {
+            it.first >= 0 && it.first < seatLayout.first().length && it.second >= 0 && it.second < seatLayout.size
+        }
+
+
+        val mapped = filtered.map { findSeat(it, s) }
+        val onlyseats = mapped.filter { !it.isFloor }
+        return onlyseats
     }
 }
