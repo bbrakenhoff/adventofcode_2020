@@ -1,6 +1,6 @@
 package com.bbrakenhoff.adventofcode.day11
 
-data class Seat(val position: Pair<Int, Int>, private var _char: Char) {
+data class Seat(val position: SeatPosition, private var _char: Char) {
 
     val char: Char
         get() = _char
@@ -12,33 +12,21 @@ data class Seat(val position: Pair<Int, Int>, private var _char: Char) {
     val isOccupied: Boolean
         get() = _char == OCCUPIED_SEAT
 
-    fun positionTop(): Pair<Int, Int> = position.first to position.second - 1
+    fun positionTop(): SeatPosition = SeatPosition(position.column, position.row - 1)
 
-    fun positionBottom(): Pair<Int, Int> = position.first to position.second + 1
+    fun positionBottom(): SeatPosition = SeatPosition(position.column, position.row + 1)
 
-    fun positionLeft(): Pair<Int, Int> = position.first - 1 to position.second
+    fun positionLeft(): SeatPosition = SeatPosition(position.column - 1, position.row)
 
-    fun positionRight(): Pair<Int, Int> = position.first + 1 to position.second
+    fun positionRight(): SeatPosition = SeatPosition(position.column + 1, position.row)
 
-    fun positionLeftTop(): Pair<Int, Int> = position.first - 1 to position.second - 1
+    fun positionLeftTop(): SeatPosition = SeatPosition(position.column - 1, position.row - 1)
 
-    fun positionRightTop(): Pair<Int, Int> = position.first + 1 to position.second - 1
+    fun positionRightTop(): SeatPosition = SeatPosition(position.column + 1, position.row - 1)
 
-    fun positionRightBottom(): Pair<Int, Int> = position.first + 1 to position.second + 1
+    fun positionRightBottom(): SeatPosition = SeatPosition(position.column + 1, position.row + 1)
 
-    fun positionLeftBottom(): Pair<Int, Int> = position.first - 1 to position.second + 1
-
-//    fun clear() {
-//        if (!isFloor) {
-//            _char = EMPTY_SEAT
-//        }
-//    }
-//
-//    fun occupy() {
-//        if (!isFloor) {
-//            _char = OCCUPIED_SEAT
-//        }
-//    }
+    fun positionLeftBottom(): SeatPosition = SeatPosition(position.column - 1, position.row + 1)
 
     companion object {
         private const val EMPTY_SEAT: Char = 'L'

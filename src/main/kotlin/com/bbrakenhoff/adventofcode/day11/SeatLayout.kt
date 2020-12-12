@@ -4,7 +4,7 @@ class SeatLayout(private var seatLayout: MutableList<String>) {
 
     fun mapToSeats(layout: List<String>): List<List<Seat>> = layout.mapIndexed { y: Int, line: String ->
         line.mapIndexed { x: Int, c: Char ->
-            Seat(x to y, c)
+            Seat(SeatPosition(x, y), c)
         }
     }
 
@@ -56,14 +56,14 @@ class SeatLayout(private var seatLayout: MutableList<String>) {
 
                     if (!seat.isOccupied && adjacentSeats.none { it.isOccupied }) {
                         shuffledSeatsCount++ //                        findSeat(seat.position, seats).occupy()
-                        val rowCharArray = seatLayout[seat.position.second].toCharArray()
-                        rowCharArray[seat.position.first] = '#'
-                        seatLayout[seat.position.second] = String(rowCharArray)
+                        val rowCharArray = seatLayout[seat.position.row].toCharArray()
+                        rowCharArray[seat.position.column] = '#'
+                        seatLayout[seat.position.row] = String(rowCharArray)
                     } else if (seat.isOccupied && adjacentSeats.count { it.isOccupied } >= 4) { //                            replaceSeat(x, y, 'L')
                         shuffledSeatsCount++ //                        findSeat(seat.position, seats).clear()
-                        val rowCharArray = seatLayout[seat.position.second].toCharArray()
-                        rowCharArray[seat.position.first] = 'L'
-                        seatLayout[seat.position.second] = String(rowCharArray)
+                        val rowCharArray = seatLayout[seat.position.row].toCharArray()
+                        rowCharArray[seat.position.column] = 'L'
+                        seatLayout[seat.position.row] = String(rowCharArray)
                         println("Pizzaa pizza!!!! ${seat.char == '#'} ")
                     }
                 }
@@ -88,14 +88,14 @@ class SeatLayout(private var seatLayout: MutableList<String>) {
 
                     if (!seat.isOccupied && adjacentSeats.none { it.isOccupied }) {
                         shuffledSeatsCount++ //                        findSeat(seat.position, seats).occupy()
-                        val rowCharArray = seatLayout[seat.position.second].toCharArray()
-                        rowCharArray[seat.position.first] = '#'
-                        seatLayout[seat.position.second] = String(rowCharArray)
+                        val rowCharArray = seatLayout[seat.position.row].toCharArray()
+                        rowCharArray[seat.position.column] = '#'
+                        seatLayout[seat.position.row] = String(rowCharArray)
                     } else if (seat.isOccupied && adjacentSeats.count { it.isOccupied } >= 5) { //                            replaceSeat(x, y, 'L')
                         shuffledSeatsCount++ //                        findSeat(seat.position, seats).clear()
-                        val rowCharArray = seatLayout[seat.position.second].toCharArray()
-                        rowCharArray[seat.position.first] = 'L'
-                        seatLayout[seat.position.second] = String(rowCharArray)
+                        val rowCharArray = seatLayout[seat.position.row].toCharArray()
+                        rowCharArray[seat.position.column] = 'L'
+                        seatLayout[seat.position.row] = String(rowCharArray)
                     }
                 }
             }
@@ -104,10 +104,10 @@ class SeatLayout(private var seatLayout: MutableList<String>) {
         return shuffledSeatsCount
     }
 
-    private fun findSeat(position: Pair<Int, Int>, s: List<List<Seat>>): Seat = s[position.second][position.first]
+    private fun findSeat(position: SeatPosition, s: List<List<Seat>>): Seat = s[position.row][position.column]
 
     private fun findAdjacentSeats(currentPosition: Seat, s: List<List<Seat>>): List<Seat> { // seat above
-        val adjacentPositions: List<Pair<Int, Int>> =
+        val adjacentPositions: List<SeatPosition> =
             listOf(currentPosition.positionTop(),
                 currentPosition.positionRightTop(),
                 currentPosition.positionRight(),
@@ -118,7 +118,7 @@ class SeatLayout(private var seatLayout: MutableList<String>) {
                 currentPosition.positionLeftTop())
 
         val filtered = adjacentPositions.filter {
-            it.first >= 0 && it.first < seatLayout.first().length && it.second >= 0 && it.second < seatLayout.size
+            it.column >= 0 && it.column < seatLayout.first().length && it.row >= 0 && it.row < seatLayout.size
         }
 
         val mapped = filtered.map { findSeat(it, s) }
@@ -150,8 +150,8 @@ class SeatLayout(private var seatLayout: MutableList<String>) {
     }
 
     private fun findFloorInDirection(currentPosition: Seat, s: List<List<Seat>>, xoperation: Int, yoperation: Int): List<Seat> {
-        var x = currentPosition.position.first
-        var y = currentPosition.position.second
+        var x = currentPosition.position.column
+        var y = currentPosition.position.row
 
         x += xoperation
         y += yoperation
