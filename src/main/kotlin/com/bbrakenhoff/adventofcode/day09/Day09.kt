@@ -5,7 +5,7 @@ import com.bbrakenhoff.adventofcode.PuzzleInputReader
 
 class Day09 : Day {
 
-    override val enabledFocusedPrint: Boolean = true
+    override val enabledFocusedPrint: Boolean = false
 
     private val numbers: List<Long> = PuzzleInputReader.read(9).map { it.toLong() }
     private val xmasDecryptor: XmasDecryptor = XmasDecryptor(numbers, 25)
