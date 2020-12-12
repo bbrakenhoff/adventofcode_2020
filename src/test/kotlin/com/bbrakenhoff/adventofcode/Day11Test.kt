@@ -16,11 +16,11 @@ class Day11Test{
 
     @Test
     fun `solution part one`(){
-        day11Test.partOne() shouldBe ""
+        day11Test.partOne() shouldBe "2273"
     }
 
     @Test
     fun `solution part two`(){
-        day11Test.partTwo() shouldBe ""
+        day11Test.partTwo() shouldBe "2064"
     }
  }
