@@ -9,13 +9,11 @@ class Day11 : Day {
     private val initialSeatLayout: MutableList<String> = PuzzleInputReader.read(11).toMutableList()
 
     override fun partOne(): String {
-//        val seatLayout: SeatLayout = SeatLayout(initialSeatLayout)
-//        val finalSeeatLayout = seatLayout.findFinalSeatLayout()
-//        val mapped = seatLayout.mapToSeats(finalSeeatLayout)
-//        val occupied = mapped.sumBy { it.count { seat -> seat.isOccupied } }
-//        return "$occupied"
-
-        return ""
+        val seatLayout: SeatLayout = SeatLayout(initialSeatLayout)
+        val finalSeeatLayout = seatLayout.findFinalSeatLayout()
+        val mapped = seatLayout.mapToSeats(finalSeeatLayout)
+        val occupied = mapped.sumBy { it.count { seat -> seat.isOccupied } }
+        return "$occupied"
     }
 
     override fun partTwo(): String {
