@@ -1,5 +1,6 @@
 package com.bbrakenhoff.adventofcode.day12
 
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -14,10 +15,11 @@ class Day12Test {
 
     @Test
     fun `solution part one`() {
-
+        day12.partOne() shouldBe "858"
     }
 
     @Test
     fun `solution part two`() {
+        day12.partTwo() shouldBe "39140"
     }
 }
