@@ -12,51 +12,21 @@ class SeatTest {
     private fun createOccupiedSeat(): Seat = Seat(SeatPosition(2, 2), '#')
 
     @Test
-    fun `should find layout position above`() {
-        val seat: Seat = createFloor()
-        seat.positionTop() shouldBe SeatPosition(2, 1)
+    fun `isSeat should be false when seat is actually floor`() {
+        val floor: Seat = createFloor()
+        floor.isSeat shouldBe false
     }
 
     @Test
-    fun `should find layout position below`() {
-        val seat: Seat = createFloor()
-        seat.positionBottom() shouldBe SeatPosition(2, 3)
+    fun `isSeat should be true when seat is empty`() {
+        val emptySeat: Seat = createEmptySeat()
+        emptySeat.isSeat shouldBe true
     }
 
     @Test
-    fun `should find layout position left`() {
-        val seat: Seat = createFloor()
-        seat.positionLeft() shouldBe SeatPosition(1, 2)
-    }
-
-    @Test
-    fun `should find layout position right`() {
-        val seat: Seat = createFloor()
-        seat.positionRight() shouldBe SeatPosition(3, 2)
-    }
-
-    @Test
-    fun `should find layout position left top corner`() {
-        val seat: Seat = createFloor()
-        seat.positionLeftTop() shouldBe SeatPosition(1, 1)
-    }
-
-    @Test
-    fun `should find layout position right top corner`() {
-        val seat: Seat = createFloor()
-        seat.positionRightTop() shouldBe SeatPosition(3, 1)
-    }
-
-    @Test
-    fun `should find layout position right bottom`() {
-        val seat: Seat = createFloor()
-        seat.positionRightBottom() shouldBe SeatPosition(3, 3)
-    }
-
-    @Test
-    fun `should find layout position left bottom`() {
-        val seat: Seat = createFloor()
-        seat.positionLeftBottom() shouldBe SeatPosition(1, 3)
+    fun `isSeat should be true when seat is occupied`() {
+        val occupiedSeat: Seat = createOccupiedSeat()
+        occupiedSeat.isSeat shouldBe true
     }
 
     @Test
@@ -78,19 +48,19 @@ class SeatTest {
     }
 
     @Test
-    fun `seatIsOccupied should be false when seat is actually floor`() {
+    fun `isOccupied should be false when seat is actually floor`() {
         val floor: Seat = createFloor()
         floor.isOccupied shouldBe false
     }
 
     @Test
-    fun `seatIsOccupied should false when seat is empty`() {
+    fun `isOccupied should false when seat is empty`() {
         val emptySeat: Seat = createEmptySeat()
         emptySeat.isOccupied shouldBe false
     }
 
     @Test
-    fun `seatIsOccupied should true when seat is occupied`() {
+    fun `isOccupied should true when seat is occupied`() {
         val occupiedSeat: Seat = createOccupiedSeat()
         occupiedSeat.isOccupied shouldBe true
     }
