@@ -5,7 +5,7 @@ import com.bbrakenhoff.adventofcode.PuzzleInputReader
 
 class Day11 : Day {
 
-    override val enabledFocusedPrint: Boolean = true
+    override val enabledFocusedPrint: Boolean = false
 
     override fun partOne(): String {
         val seatLayout: SeatLayout = SeatLayout( PuzzleInputReader.read(11).toMutableList())
