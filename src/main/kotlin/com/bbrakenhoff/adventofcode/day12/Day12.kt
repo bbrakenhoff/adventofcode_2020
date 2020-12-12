@@ -5,60 +5,19 @@ import com.bbrakenhoff.adventofcode.PuzzleInputReader
 import kotlin.math.abs
 
 class Day12 : Day {
+
     override val enabledFocusedPrint: Boolean = true
 
-//    private val directions: List<String> = listOf("F10", "N3", "F7", "R90", "F11")
+    private val movementInstructions: List<MovementInstruction> =
+        PuzzleInputReader.read(12)
+            .map { MovementInstruction.createFromInstructionLine(it) }
+
+
     private val directions: List<String> = PuzzleInputReader.read(12)
 
-
     override fun partOne(): String {
-        var facing = Direction.EAST
-        var horizontalPos = 0
-        var verticalPos = 0
-
-        directions.forEach {
-            var instruction = it[0]
-            val units = it.substring(1).toInt()
-
-            if (instruction == 'F') {
-                instruction = when (facing) {
-                    Direction.NORTH -> 'N'
-                    Direction.EAST -> 'E'
-                    Direction.SOUTH -> 'S'
-                    Direction.WEST -> 'W'
-                }
-            }
-
-            when (instruction) {
-                'S' -> {
-                    verticalPos += units
-                }
-                'N' -> {
-                    verticalPos -= units
-                }
-                'E' -> {
-                    horizontalPos += units
-                }
-                'W' -> {
-                    horizontalPos -= units
-                }
-                'R' -> {
-                    val rotations = units / 90
-                    repeat(rotations) {
-                        facing = facing.clockwise()
-                    }
-                }
-                'L' -> {
-                    val rotations = units / 90
-                    repeat(rotations) {
-                        facing = facing.counterClockwise()
-                    }
-                }
-            }
-        }
-
-        val result = abs(horizontalPos) + abs(verticalPos)
-        return "$result"
+        val ship: Ship = Ship(movementInstructions)
+        return "${ship.findManhattanDistance()}"
     }
 
     override fun partTwo(): String {
@@ -77,10 +36,14 @@ class Day12 : Day {
                 'E' -> horizontalWaypoint += units
                 'W' -> horizontalWaypoint -= units
                 'L' -> repeat(units / 90) {
-                    horizontalWaypoint = -verticalWaypoint.also { verticalWaypoint = horizontalWaypoint }
+                    horizontalWaypoint = -verticalWaypoint.also {
+                        verticalWaypoint = horizontalWaypoint
+                    }
                 }
                 'R' -> repeat(units / 90) {
-                    verticalWaypoint = -horizontalWaypoint.also { horizontalWaypoint = verticalWaypoint }
+                    verticalWaypoint = -horizontalWaypoint.also {
+                        horizontalWaypoint = verticalWaypoint
+                    }
                 }
                 'F' -> {
                     verticalPos += verticalWaypoint * units
