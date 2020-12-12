@@ -7,7 +7,7 @@ import kotlin.math.abs
 class Day12 : Day {
     override val enabledFocusedPrint: Boolean = true
 
-    //    private val directions: List<String> = listOf("F10", "N3", "F7", "R90", "F11")
+//    private val directions: List<String> = listOf("F10", "N3", "F7", "R90", "F11")
     private val directions: List<String> = PuzzleInputReader.read(12)
 
 
@@ -44,13 +44,13 @@ class Day12 : Day {
                 }
                 'R' -> {
                     val rotations = units / 90
-                    for (i in 0 until rotations) {
+                    repeat(rotations) {
                         facing = facing.clockwise()
                     }
                 }
                 'L' -> {
                     val rotations = units / 90
-                    for (i in 0 until rotations) {
+                    repeat(rotations) {
                         facing = facing.counterClockwise()
                     }
                 }
@@ -62,7 +62,35 @@ class Day12 : Day {
     }
 
     override fun partTwo(): String {
-        return ""
+        var horizontalPos = 0
+        var verticalPos = 0
+        var horizontalWaypoint = 10
+        var verticalWaypoint = 1
+
+        directions.forEach {
+            val instruction = it[0]
+            val units = it.substring(1).toInt()
+
+            when (instruction) {
+                'N' -> verticalWaypoint += units
+                'S' -> verticalWaypoint -= units
+                'E' -> horizontalWaypoint += units
+                'W' -> horizontalWaypoint -= units
+                'L' -> repeat(units / 90) {
+                    horizontalWaypoint = -verticalWaypoint.also { verticalWaypoint = horizontalWaypoint }
+                }
+                'R' -> repeat(units / 90) {
+                    verticalWaypoint = -horizontalWaypoint.also { horizontalWaypoint = verticalWaypoint }
+                }
+                'F' -> {
+                    verticalPos += verticalWaypoint * units
+                    horizontalPos += horizontalWaypoint * units
+                }
+            }
+        }
+
+        val result = abs(horizontalPos) + abs(verticalPos)
+        return "$result"
     }
 
     enum class Direction {
