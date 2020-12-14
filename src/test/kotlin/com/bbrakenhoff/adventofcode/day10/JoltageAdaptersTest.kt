@@ -15,9 +15,9 @@ class JoltageAdaptersTest {
 
     @Test
     fun `should find the joltage ratings`() {
-        val joltRatings: Pair<Int, Int> = joltageAdapters.findJoltRatings()
-        joltRatings.first shouldBe 22
-        joltRatings.second shouldBe 10
+        val joltRatings: JoltRatingCount = joltageAdapters.findJoltRatings()
+        joltRatings.joltage1 shouldBe 22
+        joltRatings.joltage3 shouldBe 10
     }
 
     @Test

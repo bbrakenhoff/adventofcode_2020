@@ -2,25 +2,24 @@ package com.bbrakenhoff.adventofcode.day10
 
 class JoltageAdapters(outputJoltage: List<Int>) {
 
-    private val highestRatedAdapter: Int = outputJoltage.max() ?: 0 + 3
+    private val highestRatedAdapter: Int = outputJoltage.maxOrNull() ?: 0 + 3
     private val outputJoltage: List<Int> = listOf(0) + outputJoltage.sorted() + listOf(highestRatedAdapter)
 
     /**
      * Finds the jolt ratings in a Pair, where first value is jolt rating 1 and second is jolt rating 2
      */
-    fun findJoltRatings(): Pair<Int, Int> {
-        val joltageAdapters: List<Pair<Int, Int>> = findJoltageAdapters()
-        val joltageRating1: Int = joltageAdapters.count { it.second - it.first == 1 }
-        val joltageRating3: Int = joltageAdapters.count { it.second - it.first == 3 }
-
-        return Pair(joltageRating1, joltageRating3)
+    fun findJoltRatings(): JoltRatingCount {
+        val joltageAdapters: List<JoltageAdapter> = findJoltageAdapters()
+        val joltageRating1: Int = joltageAdapters.count { it.joltageAdapter - it.joltageOutput == 1 }
+        val joltageRating3: Int = joltageAdapters.count { it.joltageAdapter - it.joltageOutput == 3 }
+        return JoltRatingCount(joltageRating1, joltageRating3)
     }
 
-    private fun findJoltageAdapters(): List<Pair<Int, Int>> = outputJoltage.indices.map {
+    private fun findJoltageAdapters(): List<JoltageAdapter> = outputJoltage.indices.map {
         mapJoltageToAdapter(it)
     }
 
-    private fun mapJoltageToAdapter(joltageIndex: Int): Pair<Int, Int> {
+    private fun mapJoltageToAdapter(joltageIndex: Int): JoltageAdapter {
         val joltage: Int = outputJoltage[joltageIndex]
         val adapter: Int = if (joltageIndex == outputJoltage.lastIndex) {
             highestRatedAdapter
@@ -29,11 +28,10 @@ class JoltageAdapters(outputJoltage: List<Int>) {
             findAdapterForNextJoltage(joltage, nextJoltage)
         }
 
-        return Pair(joltage, adapter)
+        return JoltageAdapter(joltage, adapter)
     }
 
-    private fun findAdapterForNextJoltage(joltage: Int, nextJoltage: Int) =
-    if (joltage + 1 == nextJoltage) {
+    private fun findAdapterForNextJoltage(joltage: Int, nextJoltage: Int) = if (joltage + 1 == nextJoltage) {
         nextJoltage
     } else {
         joltage + 3

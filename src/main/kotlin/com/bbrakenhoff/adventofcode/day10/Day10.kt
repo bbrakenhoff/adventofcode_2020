@@ -11,8 +11,8 @@ class Day10 : Day {
     private val joltageAdapters = JoltageAdapters(outputJoltage)
 
     override fun partOne(): String {
-        val joltDifferences: Pair<Int, Int> = joltageAdapters.findJoltRatings()
-        val multipliedJoltDifferences: Int = joltDifferences.first * joltDifferences.second
+        val joltDifferences: JoltRatingCount = joltageAdapters.findJoltRatings()
+        val multipliedJoltDifferences: Int = joltDifferences.joltage1 * joltDifferences.joltage3
         return "$multipliedJoltDifferences"
     }
 
