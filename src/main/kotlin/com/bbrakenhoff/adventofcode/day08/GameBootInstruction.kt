@@ -1,8 +1,8 @@
 package com.bbrakenhoff.adventofcode.day08
 
-sealed class Instruction(open val amount: Int, open val increase: Boolean, var executedTimes: Int = 0) {
+sealed class GameBootInstruction(open val amount: Int, open val increase: Boolean, var executedTimes: Int = 0) {
 
-    data class Accumulator(override val amount: Int, override val increase: Boolean) : Instruction(amount, increase) {
+    data class Accumulator(override val amount: Int, override val increase: Boolean) : GameBootInstruction(amount, increase) {
 
         override fun calculateNewAccumulator(accumulator: Int): Int {
             var newAccumulator: Int = accumulator
@@ -23,7 +23,7 @@ sealed class Instruction(open val amount: Int, open val increase: Boolean, var e
         override fun calculateNextInstructionIndex(nextInstructionIndex: Int): Int = nextInstructionIndex + 1
     }
 
-    data class Jump(override val amount: Int, override val increase: Boolean) : Instruction(amount, increase) {
+    data class Jump(override val amount: Int, override val increase: Boolean) : GameBootInstruction(amount, increase) {
         override fun calculateNewAccumulator(accumulator: Int): Int = accumulator
 
         override fun calculateNextInstructionIndex(nextInstructionIndex: Int): Int {
@@ -35,7 +35,7 @@ sealed class Instruction(open val amount: Int, open val increase: Boolean, var e
         }
     }
 
-    data class NoOperation(override val amount: Int, override val increase: Boolean) : Instruction(amount, increase) {
+    data class NoOperation(override val amount: Int, override val increase: Boolean) : GameBootInstruction(amount, increase) {
         override fun calculateNewAccumulator(accumulator: Int): Int = accumulator
 
         override fun calculateNextInstructionIndex(nextInstructionIndex: Int): Int = nextInstructionIndex + 1
@@ -50,7 +50,7 @@ sealed class Instruction(open val amount: Int, open val increase: Boolean, var e
     }
 
     companion object {
-        fun parseRaw(rawInstruction: String): Instruction {
+        fun parseRaw(rawInstruction: String): GameBootInstruction {
             val instructionRegexResult: MatchResult? = INSTRUCTION_REGEX.matchEntire(rawInstruction)
             val type: String = instructionRegexResult?.groupValues?.get(1).orEmpty()
             val increase: Boolean = instructionRegexResult?.groupValues?.get(2) == "+"

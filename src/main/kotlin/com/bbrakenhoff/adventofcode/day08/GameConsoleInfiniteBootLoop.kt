@@ -4,12 +4,12 @@ class GameConsoleInfiniteBootLoop(rawInstructions: List<String>) : GameConsole(r
 
     override fun boot() {
         while (!isInInfiniteLoop()) {
-            val nextInstruction: Instruction = nextInstruction()
+            val nextInstruction: GameBootInstruction = nextInstruction()
             updateAccumulator(nextInstruction)
             nextInstruction.updateExecutionTimes()
             updateNextInstructionIndex()
         }
     }
 
-    override fun createInstructions(): List<Instruction> = rawInstructions.map { Instruction.parseRaw(it) }
+    override fun createInstructions(): List<GameBootInstruction> = rawInstructions.map { GameBootInstruction.parseRaw(it) }
 }

@@ -6,7 +6,7 @@ class GameConsoleFixed(rawInstructions: List<String>) : GameConsole(rawInstructi
 
     override fun boot() {
         while (!isInInfiniteLoop() && bootNotYetComplete()) {
-            val instruction: Instruction = nextInstruction()
+            val instruction: GameBootInstruction = nextInstruction()
             updateAccumulator(instruction)
             updateNextInstructionIndex()
             instruction.updateExecutionTimes()
@@ -19,21 +19,21 @@ class GameConsoleFixed(rawInstructions: List<String>) : GameConsole(rawInstructi
 
     private fun bootNotYetComplete(): Boolean = nextInstructionIndex < instructions.size
 
-    override fun createInstructions(): List<Instruction> {
+    override fun createInstructions(): List<GameBootInstruction> {
         return if (restartedBoot) {
             replaceJump()
         } else {
-            rawInstructions.map { Instruction.parseRaw(it) }
+            rawInstructions.map { GameBootInstruction.parseRaw(it) }
         }
     }
 
-    private fun replaceJump(): List<Instruction> {
+    private fun replaceJump(): List<GameBootInstruction> {
         calculateNextJumpToReplaceIndex()
         return rawInstructions.mapIndexed { i: Int, rawInstruction: String ->
             if (i == nextJumpToReplaceIndex) {
-                Instruction.NoOperation(1, true)
+                GameBootInstruction.NoOperation(1, true)
             } else {
-                Instruction.parseRaw(rawInstruction)
+                GameBootInstruction.parseRaw(rawInstruction)
             }
         }
     }
@@ -43,7 +43,7 @@ class GameConsoleFixed(rawInstructions: List<String>) : GameConsole(rawInstructi
 
         var i: Int = nextJumpToReplaceIndex
 
-        while (instructions[i] !is Instruction.Jump) {
+        while (instructions[i] !is GameBootInstruction.Jump) {
             i++
         }
 

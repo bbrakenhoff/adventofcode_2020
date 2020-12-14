@@ -12,7 +12,7 @@ class Day07 : Day {
 
     override fun partOne(): String {
         val usableBags: List<Bag> = luggageProcessor.findBagsToCarry("shiny gold")
-        val usableBagsCount = usableBags.size
+        val usableBagsCount: Int = usableBags.size
         return "$usableBagsCount"
     }
 

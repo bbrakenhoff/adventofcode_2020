@@ -5,32 +5,32 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-class InstructionTest {
+class GameBootInstructionTest {
 
-    private fun testCalculateNewAccumulator(instruction: Instruction): Int = instruction.calculateNewAccumulator(ACCUMULATOR_VALUE)
+    private fun testCalculateNewAccumulator(instruction: GameBootInstruction): Int = instruction.calculateNewAccumulator(ACCUMULATOR_VALUE)
 
-    private fun testCalculateNextInstructionIndex(instruction: Instruction): Int = instruction.calculateNextInstructionIndex(NEXT_INSTRUCTION_INDEX)
+    private fun testCalculateNextInstructionIndex(instruction: GameBootInstruction): Int = instruction.calculateNextInstructionIndex(NEXT_INSTRUCTION_INDEX)
 
     @Test
     fun `should parse instructions`() {
         val rawInstructions: List<String> = listOf("jmp +98", "acc +0", "nop +406", "acc +32", "acc -15", "jmp -68", "nop -86")
-        val expectedInstructions: List<Instruction> =
-            listOf(Instruction.Jump(98, true),
-                   Instruction.Accumulator(0, true),
-                   Instruction.NoOperation(406, true),
-                   Instruction.Accumulator(32, true),
-                   Instruction.Accumulator(15, false),
-                   Instruction.Jump(68, false),
-                   Instruction.NoOperation(86, false))
+        val expectedInstructions: List<GameBootInstruction> =
+            listOf(GameBootInstruction.Jump(98, true),
+                   GameBootInstruction.Accumulator(0, true),
+                   GameBootInstruction.NoOperation(406, true),
+                   GameBootInstruction.Accumulator(32, true),
+                   GameBootInstruction.Accumulator(15, false),
+                   GameBootInstruction.Jump(68, false),
+                   GameBootInstruction.NoOperation(86, false))
 
-        val mappedInstructions: List<Instruction> = rawInstructions.map { Instruction.parseRaw(it) }
+        val mappedInstructions: List<GameBootInstruction> = rawInstructions.map { GameBootInstruction.parseRaw(it) }
         mappedInstructions.shouldContainExactly(expectedInstructions)
     }
 
     @Test
     fun `should update execution times`() {
         val rawInstructions: List<String> = listOf("jmp +98", "acc +0", "nop +406")
-        val mappedInstructions: List<Instruction> = rawInstructions.map { Instruction.parseRaw(it) }
+        val mappedInstructions: List<GameBootInstruction> = rawInstructions.map { GameBootInstruction.parseRaw(it) }
 
         mappedInstructions.forEach {
             it.executedTimes shouldBe 0
@@ -44,25 +44,25 @@ class InstructionTest {
 
         @Test
         fun `should add amount to accumulator when increase is true`() {
-            val instruction = Instruction.Accumulator(AMOUNT, true)
+            val instruction = GameBootInstruction.Accumulator(AMOUNT, true)
             testCalculateNewAccumulator(instruction) shouldBe ACCUMULATOR_VALUE + AMOUNT
         }
 
         @Test
         fun `should subtract amount from accumalator when increase is false`() {
-            val instruction = Instruction.Accumulator(AMOUNT, false)
+            val instruction = GameBootInstruction.Accumulator(AMOUNT, false)
             testCalculateNewAccumulator(instruction) shouldBe ACCUMULATOR_VALUE - AMOUNT
         }
 
         @Test
         fun `should not do anything when already executed`() {
-            val increaseAccumulatorInstruction: Instruction = Instruction.Accumulator(AMOUNT, true)
+            val increaseAccumulatorInstruction: GameBootInstruction = GameBootInstruction.Accumulator(AMOUNT, true)
 
             testCalculateNewAccumulator(increaseAccumulatorInstruction) shouldBe ACCUMULATOR_VALUE + AMOUNT
             increaseAccumulatorInstruction.updateExecutionTimes()
             testCalculateNewAccumulator(increaseAccumulatorInstruction) shouldBe ACCUMULATOR_VALUE
 
-            val decreaseAccumulatorInstruction: Instruction = Instruction.Accumulator(AMOUNT, false)
+            val decreaseAccumulatorInstruction: GameBootInstruction = GameBootInstruction.Accumulator(AMOUNT, false)
             testCalculateNewAccumulator(decreaseAccumulatorInstruction) shouldBe ACCUMULATOR_VALUE - AMOUNT
             decreaseAccumulatorInstruction.updateExecutionTimes()
             testCalculateNewAccumulator(decreaseAccumulatorInstruction) shouldBe ACCUMULATOR_VALUE
@@ -70,7 +70,7 @@ class InstructionTest {
 
         @Test
         fun `should increase next instruction index with 1`() {
-            val instructions = listOf(Instruction.Accumulator(AMOUNT, true), Instruction.Accumulator(AMOUNT, false))
+            val instructions = listOf(GameBootInstruction.Accumulator(AMOUNT, true), GameBootInstruction.Accumulator(AMOUNT, false))
 
             instructions.forEach {
                 testCalculateNextInstructionIndex(it) shouldBe ACCUMULATOR_VALUE + 1
@@ -83,7 +83,7 @@ class InstructionTest {
 
         @Test
         fun `should not change value of accumulator`() {
-            val instructions = listOf(Instruction.Jump(AMOUNT, true), Instruction.Jump(AMOUNT, false))
+            val instructions = listOf(GameBootInstruction.Jump(AMOUNT, true), GameBootInstruction.Jump(AMOUNT, false))
 
             instructions.forEach {
                 testCalculateNewAccumulator(it) shouldBe ACCUMULATOR_VALUE
@@ -92,13 +92,13 @@ class InstructionTest {
 
         @Test
         fun `should add amount to next instruction index when increase is true`() {
-            val instruction = Instruction.Jump(AMOUNT, true)
+            val instruction = GameBootInstruction.Jump(AMOUNT, true)
             testCalculateNextInstructionIndex(instruction) shouldBe NEXT_INSTRUCTION_INDEX + AMOUNT
         }
 
         @Test
         fun `should subtract amount from next instruction index when increase is false`() {
-            val instruction = Instruction.Jump(AMOUNT, false)
+            val instruction = GameBootInstruction.Jump(AMOUNT, false)
             testCalculateNextInstructionIndex(instruction) shouldBe NEXT_INSTRUCTION_INDEX - AMOUNT
         }
     }
@@ -107,7 +107,7 @@ class InstructionTest {
     inner class NoOperation {
         @Test
         fun `should not change value of accumulator`() {
-            val instructions = listOf(Instruction.NoOperation(AMOUNT, true), Instruction.NoOperation(AMOUNT, false))
+            val instructions = listOf(GameBootInstruction.NoOperation(AMOUNT, true), GameBootInstruction.NoOperation(AMOUNT, false))
             instructions.forEach {
                 testCalculateNewAccumulator(it) shouldBe ACCUMULATOR_VALUE
             }
@@ -115,7 +115,7 @@ class InstructionTest {
 
         @Test
         fun `should increase next instruction index with 1`() {
-            val instructions = listOf(Instruction.Accumulator(AMOUNT, true), Instruction.Accumulator(AMOUNT, false))
+            val instructions = listOf(GameBootInstruction.Accumulator(AMOUNT, true), GameBootInstruction.Accumulator(AMOUNT, false))
 
             instructions.forEach {
                 testCalculateNextInstructionIndex(it) shouldBe ACCUMULATOR_VALUE + 1

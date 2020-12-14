@@ -10,8 +10,8 @@ abstract class GameConsole(protected val rawInstructions: List<String>) {
     protected val nextInstructionIndex: Int
         get() = _nextInstructionIndex
 
-    private lateinit var _instructions: List<Instruction>
-    protected val instructions: List<Instruction>
+    private lateinit var _instructions: List<GameBootInstruction>
+    protected val instructions: List<GameBootInstruction>
         get() = _instructions
 
     private var _restartedBoot: Boolean = false
@@ -30,17 +30,17 @@ abstract class GameConsole(protected val rawInstructions: List<String>) {
         _instructions = createInstructions()
     }
 
-    protected abstract fun createInstructions(): List<Instruction>
+    protected abstract fun createInstructions(): List<GameBootInstruction>
 
     abstract fun boot()
 
     protected fun isInInfiniteLoop(): Boolean = instructions.any { it.executedTimes > 1 }
 
-    protected fun updateAccumulator(instruction: Instruction) {
+    protected fun updateAccumulator(instruction: GameBootInstruction) {
         _accumulator = instruction.calculateNewAccumulator(_accumulator)
     }
 
-    protected fun nextInstruction(): Instruction = instructions[_nextInstructionIndex]
+    protected fun nextInstruction(): GameBootInstruction = instructions[_nextInstructionIndex]
 
     protected fun updateNextInstructionIndex() {
         _nextInstructionIndex = instructions[_nextInstructionIndex].calculateNextInstructionIndex(_nextInstructionIndex)
