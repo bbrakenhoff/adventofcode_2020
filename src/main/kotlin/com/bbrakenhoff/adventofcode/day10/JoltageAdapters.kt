@@ -33,11 +33,11 @@ class JoltageAdapters(outputJoltage: List<Int>) {
     }
 
     private fun findAdapterForNextJoltage(joltage: Int, nextJoltage: Int) =
-        if (joltage + 1 == nextJoltage) {
-            nextJoltage
-        } else {
-            joltage + 3
-        }
+    if (joltage + 1 == nextJoltage) {
+        nextJoltage
+    } else {
+        joltage + 3
+    }
 
     fun findPossibleAdapterArrangments(): Long {
         val possibleArrangements: MutableList<Long> = MutableList(outputJoltage.size) { 0L }

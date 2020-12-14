@@ -22,9 +22,9 @@ class BagTest {
 
         luggageProcessor.color shouldBe "faded olive"
         luggageProcessor.bagsInside.shouldContainExactlyInAnyOrder(listOf(Pair("bright crimson", 1),
-            Pair("dotted green", 15),
-            Pair("dull bronze", 5),
-            Pair("posh turquoise", 2)))
+                                                                          Pair("dotted green", 15),
+                                                                          Pair("dull bronze", 5),
+                                                                          Pair("posh turquoise", 2)))
     }
 
     @Test

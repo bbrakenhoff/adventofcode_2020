@@ -8,11 +8,18 @@ class SlopeTest {
     @Test
     fun `should count all trees passed walking down the slope`() {
         val slopeMap: List<String> =
-            listOf("..##.......", "#...#...#..", ".#....#..#.", "..#.#...#.#", ".#...##..#.", "..#.##.....", ".#.#.#....#", ".#........#", "#.##...#...",
-                "#...##....#", ".#..#...#.#")
-
+            listOf("..##.......",
+                   "#...#...#..",
+                   ".#....#..#.",
+                   "..#.#...#.#",
+                   ".#...##..#.",
+                   "..#.##.....",
+                   ".#.#.#....#",
+                   ".#........#",
+                   "#.##...#...",
+                   "#...##....#",
+                   ".#..#...#.#")
         val slope = Slope(slopeMap, 3, 1)
-
-            slope.countTreesInSlope() shouldBe 7
+        slope.countTreesInSlope() shouldBe 7
     }
 }

@@ -14,14 +14,14 @@ class PassportTest {
     fun `should return true when all required fields present and valid`() {
         val batchLines: List<String> =
             listOf("eyr:2029 ecl:amb cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:165cm",
-                "eyr:2029 ecl:blu cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:60in",
-                "eyr:2029 ecl:brn cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:60in",
-                "eyr:2029 ecl:gry cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:60in",
-                "eyr:2029 ecl:grn cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:60in",
-                "eyr:2029 ecl:hzl cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:60in",
-                "eyr:2029 ecl:oth cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:60in",
-                "eyr:2029 ecl:blu cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:60in",
-                "eyr:2029 ecl:blu cid:129 byr:1989 iyr:2014 pid:006056539 hcl:#a97842 hgt:60in")
+                   "eyr:2029 ecl:blu cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:60in",
+                   "eyr:2029 ecl:brn cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:60in",
+                   "eyr:2029 ecl:gry cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:60in",
+                   "eyr:2029 ecl:grn cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:60in",
+                   "eyr:2029 ecl:hzl cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:60in",
+                   "eyr:2029 ecl:oth cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:60in",
+                   "eyr:2029 ecl:blu cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:60in",
+                   "eyr:2029 ecl:blu cid:129 byr:1989 iyr:2014 pid:006056539 hcl:#a97842 hgt:60in")
 
         for (batchLine: String in batchLines) {
             testPasswordIsValid(batchLine) shouldBe true

@@ -16,12 +16,12 @@ class InstructionTest {
         val rawInstructions: List<String> = listOf("jmp +98", "acc +0", "nop +406", "acc +32", "acc -15", "jmp -68", "nop -86")
         val expectedInstructions: List<Instruction> =
             listOf(Instruction.Jump(98, true),
-                Instruction.Accumulator(0, true),
-                Instruction.NoOperation(406, true),
-                Instruction.Accumulator(32, true),
-                Instruction.Accumulator(15, false),
-                Instruction.Jump(68, false),
-                Instruction.NoOperation(86, false))
+                   Instruction.Accumulator(0, true),
+                   Instruction.NoOperation(406, true),
+                   Instruction.Accumulator(32, true),
+                   Instruction.Accumulator(15, false),
+                   Instruction.Jump(68, false),
+                   Instruction.NoOperation(86, false))
 
         val mappedInstructions: List<Instruction> = rawInstructions.map { Instruction.parseRaw(it) }
         mappedInstructions.shouldContainExactly(expectedInstructions)

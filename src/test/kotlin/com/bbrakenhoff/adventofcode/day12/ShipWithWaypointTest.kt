@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test
 
 class ShipWithWaypointTest {
 
-
     private lateinit var ship: ShipWithWaypoint
     private lateinit var navigationInstructions: List<NavigationInstruction>
 

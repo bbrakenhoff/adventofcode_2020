@@ -10,8 +10,7 @@ class Day11 : Day {
     private val initialSeatLayout: List<String> = PuzzleInputReader.read(11)
 
     override fun partOne(): String {
-        val seatLayout: SeatLayout =
-            SeatLayout(initialSeatLayout, SurroundingSeatsFinder(), 4)
+        val seatLayout: SeatLayout = SeatLayout(initialSeatLayout, SurroundingSeatsFinder(), 4)
 
         return "${countOccpiedSeats(seatLayout)}"
     }
@@ -22,11 +21,9 @@ class Day11 : Day {
     }
 
     override fun partTwo(): String {
-        val seatLayout: SeatLayout =
-            SeatLayout(initialSeatLayout, FirstSeenSeatsFinder(), 5)
+        val seatLayout: SeatLayout = SeatLayout(initialSeatLayout, FirstSeenSeatsFinder(), 5)
 
         return "${countOccpiedSeats(seatLayout)}"
     }
-
 
 }

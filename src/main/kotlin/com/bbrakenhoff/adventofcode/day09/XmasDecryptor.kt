@@ -22,8 +22,7 @@ class XmasDecryptor(private val numbers: List<Long>, private val preamble: Int) 
         return invalidNumber
     }
 
-    private fun findNumberInPreviousNumbers(previousNumbers: List<Long>, i: Int): Boolean =
-        previousNumbers.any { previousNumbers.contains(numbers[i] - it) }
+    private fun findNumberInPreviousNumbers(previousNumbers: List<Long>, i: Int): Boolean = previousNumbers.any { previousNumbers.contains(numbers[i] - it) }
 
     fun findEncryptionWeakness(): Long {
         val firstError = findFirstInvalidNumber()

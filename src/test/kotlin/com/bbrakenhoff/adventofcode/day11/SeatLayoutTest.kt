@@ -7,15 +7,13 @@ class SeatLayoutTest {
 
     @Test
     fun `should shuffle seats until no changes made anymore using surrounding seats`() {
-        val seatLayout: SeatLayout =
-            SeatLayout(INITIAL_SEAT_LAYOUT, SurroundingSeatsFinder(), 4)
+        val seatLayout: SeatLayout = SeatLayout(INITIAL_SEAT_LAYOUT, SurroundingSeatsFinder(), 4)
         seatLayout.findFinalSeatLayout() shouldBe FINAL_SEAT_LAYOUT_USING_SURROUNDING_SEATS
     }
 
     @Test
     fun `should shuffle seats 2 until no changes made anymore using first seen seats`() {
-        val seatLayout: SeatLayout =
-            SeatLayout(INITIAL_SEAT_LAYOUT, FirstSeenSeatsFinder(), 5)
+        val seatLayout: SeatLayout = SeatLayout(INITIAL_SEAT_LAYOUT, FirstSeenSeatsFinder(), 5)
         seatLayout.findFinalSeatLayout() shouldBe FINAL_SEAT_LAYOUT_USING_FIRST_SEEN_SEATS
     }
 

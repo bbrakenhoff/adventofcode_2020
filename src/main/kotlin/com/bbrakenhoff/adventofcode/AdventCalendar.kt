@@ -59,8 +59,7 @@ object AdventCalendar {
         println(String.format(DAY_PART_TWO, answerPartTwo))
     }
 
-    private fun answerText(solution: String?): String = solution?.ifBlank { NOT_SOLVED_YET }
-        ?: NOT_SOLVED_YET
+    private fun answerText(solution: String?): String = solution?.ifBlank { NOT_SOLVED_YET } ?: NOT_SOLVED_YET
 
     private fun printDayFooter() {
         println()

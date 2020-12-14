@@ -41,8 +41,7 @@ class NormalShip : Ship() {
 
     override fun rotateCounterclockwise(units: Int) {
         repeat(countRotations(units)) {
-            facingDirection =
-                facingDirection.rotateCounterClockwise()
+            facingDirection = facingDirection.rotateCounterClockwise()
         }
     }
 }

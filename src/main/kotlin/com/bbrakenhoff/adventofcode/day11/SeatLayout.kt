@@ -43,7 +43,7 @@ class SeatLayout(initialSeatLayout: List<String>, private val adjacentSeatsFinde
             if (shouldOccupySeat(it, adjacentSeats)) {
                 countShuffledSeats++ //                        findSeat(seat.position, seats).occupy()
                 shuffleSeat(it, Seat.OCCUPIED_SEAT_CHAR)
-            } else if(shouldEmptySeat(it, adjacentSeats)){
+            } else if (shouldEmptySeat(it, adjacentSeats)) {
                 countShuffledSeats++
                 shuffleSeat(it, Seat.EMPTY_SEAT_CHAR)
             }
@@ -60,5 +60,6 @@ class SeatLayout(initialSeatLayout: List<String>, private val adjacentSeatsFinde
         editedSeatLayout[seat.position.y] = String(rowCharArray)
     }
 
-    private fun shouldEmptySeat(seat: Seat, adjacentSeats: List<Seat>): Boolean = seat.isOccupied && adjacentSeats.count { it.isOccupied } >= maxNearbyOccupiedSeats
+    private fun shouldEmptySeat(seat: Seat, adjacentSeats: List<Seat>): Boolean =
+        seat.isOccupied && adjacentSeats.count { it.isOccupied } >= maxNearbyOccupiedSeats
 }

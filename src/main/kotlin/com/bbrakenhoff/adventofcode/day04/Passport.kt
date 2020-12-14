@@ -7,8 +7,8 @@ class Passport(private val batchLine: String) {
     }
 
     fun allFieldsPresent(): Boolean =
-        batchLine.contains(BIRTH_YEAR_KEY) && batchLine.contains(ISSUE_YEAR_KEY) && batchLine.contains(EXPIRATION_YEAR_KEY) && batchLine.contains(
-            HEIGHT_KEY) && batchLine.contains(HAIR_COLOR_KEY) && batchLine.contains(EYE_COLOR_KEY) && batchLine.contains(PASSPORT_ID_KEY)
+        batchLine.contains(BIRTH_YEAR_KEY) && batchLine.contains(ISSUE_YEAR_KEY) && batchLine.contains(EXPIRATION_YEAR_KEY) && batchLine.contains(HEIGHT_KEY) && batchLine.contains(
+            HAIR_COLOR_KEY) && batchLine.contains(EYE_COLOR_KEY) && batchLine.contains(PASSPORT_ID_KEY)
 
     private fun isBirthYearValid(): Boolean {
         val birthYearRegex: Regex = Regex("($BIRTH_YEAR_KEY)$VALUE_PATTERN")

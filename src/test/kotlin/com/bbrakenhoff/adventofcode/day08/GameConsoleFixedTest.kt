@@ -11,7 +11,6 @@ class GameConsoleFixedTest {
         gameConsole.accumulator shouldBe 0
     }
 
-
     @Test
     fun `should return the value of accumulator when boot completed`() {
         val gameConsole: GameConsole = GameConsoleFixed(RAW_INSTRUCTIONS)
