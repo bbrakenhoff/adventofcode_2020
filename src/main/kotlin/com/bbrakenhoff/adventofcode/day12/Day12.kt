@@ -7,20 +7,22 @@ class Day12 : Day {
 
     override val enabledFocusedPrint: Boolean = true
 
-    private val navigationInstructions: List<NavigationInstruction> =
-        PuzzleInputReader.read(12)
-            .map { NavigationInstruction.createFromInstructionLine(it) }
-    
+    private val navigationInstructions: List<String> = PuzzleInputReader.read(12)
+
     override fun partOne(): String {
-        val ship: Ship = NormalShip(navigationInstructions)
-        return getManhattanDistanceFromShip(ship)
+        val ship: Ship = NormalShip()
+        return navigateAndFindManhattanDistance(ship)
     }
 
-    private fun getManhattanDistanceFromShip(ship: Ship): String =
-        "${ship.navigateAndFindManhattanDistance()}"
+    private fun navigateAndFindManhattanDistance(ship: Ship): String {
+        navigationInstructions.map { NavigationInstruction.createFromInstructionLine(it, ship) }.forEach {
+            it.navigateShip()
+        }
+        return "${ship.findManhattanDistance()}"
+    }
 
     override fun partTwo(): String {
-        val ship: Ship = ShipWithWaypoint(navigationInstructions)
-        return getManhattanDistanceFromShip(ship)
+        val ship: Ship = ShipWithWaypoint()
+        return navigateAndFindManhattanDistance(ship)
     }
 }

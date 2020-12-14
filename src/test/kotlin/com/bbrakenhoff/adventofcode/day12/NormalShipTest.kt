@@ -1,20 +1,31 @@
 package com.bbrakenhoff.adventofcode.day12
 
 import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class NormalShipTest {
 
+    private lateinit var ship: NormalShip
+    private lateinit var navigationInstructions: List<NavigationInstruction>
+
+    @BeforeEach
+    fun beforeEach() {
+        ship = NormalShip()
+        navigationInstructions = NAVIGATION_INSTRUCTIONS.map { NavigationInstruction.createFromInstructionLine(it, ship) }
+    }
+
+    private fun testFindingManhattanDistance(): Int {
+        navigationInstructions.forEach { it.navigateShip() }
+        return ship.findManhattanDistance()
+    }
+
     @Test
-    fun `should find distance between starting position and destination`() {
-        val ship: NormalShip = NormalShip(NAVIGATION_INSTRUCTIONS)
-        ship.navigateAndFindManhattanDistance() shouldBe 25
+    fun `should find manhattan distance the ship has navigated`() {
+        testFindingManhattanDistance() shouldBe 35
     }
 
     companion object {
-        private val NAVIGATION_INSTRUCTIONS: List<NavigationInstruction> =
-            listOf("F10", "N3", "F7", "R90", "F11").map {
-                NavigationInstruction.createFromInstructionLine(it)
-            }
+        private val NAVIGATION_INSTRUCTIONS: List<String> = listOf("F10", "N3", "F7", "R90", "F11", "E3", "F7", "L90", "E2", "S4", "W6")
     }
 }

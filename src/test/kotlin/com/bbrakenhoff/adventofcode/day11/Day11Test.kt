@@ -1,6 +1,5 @@
-package com.bbrakenhoff.adventofcode
+package com.bbrakenhoff.adventofcode.day11
 
-import com.bbrakenhoff.adventofcode.day11.Day11
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

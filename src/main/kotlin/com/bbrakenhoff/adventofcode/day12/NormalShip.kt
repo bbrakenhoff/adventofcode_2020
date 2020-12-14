@@ -1,52 +1,48 @@
 package com.bbrakenhoff.adventofcode.day12
 
-class NormalShip(navigationInstructions: List<NavigationInstruction>):Ship(navigationInstructions) {
+class NormalShip : Ship() {
 
     private var facingDirection: Compass = Compass.EAST
 
-    override fun navigate() {
-        navigationInstructions.forEach {
-            var instruction: NavigationInstruction = it
-            if (instruction is NavigationInstruction.Forward) {
-                instruction = forwardMovementToCompassDirection(instruction)
-            }
-
-            processInstruction(instruction)
-        }
+    override fun navigateNorth(units: Int) {
+        northSouthPosition -= units
     }
 
-    private fun processInstruction(instruction: NavigationInstruction) {
-        when (instruction) {
-            is NavigationInstruction.South -> northSouthPosition += instruction.units
-            is NavigationInstruction.North -> northSouthPosition -= instruction.units
-            is NavigationInstruction.East -> eastWestPosition += instruction.units
-            is NavigationInstruction.West -> eastWestPosition -= instruction.units
-            is NavigationInstruction.RotateRight -> {
-                repeat(countRotations(instruction.units)) {
-                    facingDirection = facingDirection.rotateClockwise()
-                }
-            }
-            is NavigationInstruction.RotateLeft -> {
-                repeat(countRotations(instruction.units)) {
-                    facingDirection =
-                        facingDirection.rotateCounterClockwise()
-                }
-            }
-            else -> {
-            }
-        }
+    override fun navigateSouth(units: Int) {
+        northSouthPosition += units
     }
 
-    private fun forwardMovementToCompassDirection(forwardNavigationInstruction: NavigationInstruction.Forward): NavigationInstruction {
+    override fun navigateEast(units: Int) {
+        eastWestPosition += units
+    }
+
+    override fun navigateWest(units: Int) {
+        eastWestPosition -= units
+    }
+
+    override fun navigateForward(units: Int) {
+        forwardMovementToCompassDirection(units).navigateShip()
+    }
+
+    private fun forwardMovementToCompassDirection(units: Int): NavigationInstruction {
         return when (facingDirection) {
-            Compass.NORTH -> NavigationInstruction.North(
-                forwardNavigationInstruction.units
-            )
-            Compass.EAST -> NavigationInstruction.East(forwardNavigationInstruction.units)
-            Compass.SOUTH -> NavigationInstruction.South(
-                forwardNavigationInstruction.units
-            )
-            Compass.WEST -> NavigationInstruction.West(forwardNavigationInstruction.units)
+            Compass.NORTH -> NavigationInstruction.North(units, this)
+            Compass.EAST -> NavigationInstruction.East(units, this)
+            Compass.SOUTH -> NavigationInstruction.South(units, this)
+            Compass.WEST -> NavigationInstruction.West(units, this)
+        }
+    }
+
+    override fun rotateClockwise(units: Int) {
+        repeat(countRotations(units)) {
+            facingDirection = facingDirection.rotateClockwise()
+        }
+    }
+
+    override fun rotateCounterclockwise(units: Int) {
+        repeat(countRotations(units)) {
+            facingDirection =
+                facingDirection.rotateCounterClockwise()
         }
     }
 }
